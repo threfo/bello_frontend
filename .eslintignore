@@ -1,0 +1,7 @@
+build/*
+config/*.js
+dist/*.js
+public/vendor/*
+
+src/assets/lib
+src/shims-tsx.d.ts
