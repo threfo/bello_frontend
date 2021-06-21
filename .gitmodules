@@ -1,0 +1,3 @@
+[submodule "projects/subapp_vue_dome"]
+	path = projects/subapp_vue_dome
+	url = git@github.com:thomas-bello/subapp_vue_dome.git
