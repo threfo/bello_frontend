@@ -1,3 +1,6 @@
-[submodule "projects/subapp_vue_dome"]
-	path = projects/subapp_vue_dome
-	url = git@github.com:thomas-bello/subapp_vue_dome.git
+[submodule "projects/subapp_vue_demo"]
+	path = projects/subapp_vue_demo
+	url = git@github.com:thomas-bello/subapp_vue_demo.git
+[submodule "projects/master_vue_demo"]
+	path = projects/master_vue_demo
+	url = git@github.com:thomas-bello/master_vue_demo.git
