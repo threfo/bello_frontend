@@ -1,5 +1,5 @@
 {
-  "name": "bello-tsconfig",
+  "name": "@bello/bello-tsconfig",
   "version": "0.2.0",
   "description": "Bello 前端项目推荐的 typescript 配置",
   "author": "thomas-ballo <liurongliang@balloai.com>",
@@ -20,5 +20,5 @@
   "bugs": {
     "url": "https://github.com/thomas-bello/bello_frontend/issues"
   },
-  "gitHead": "bdda0887e113788c493b1cbb54c733dea645aa95"
+  "gitHead": "0ee1f910789a8fe4cf4490e673efea834179d221"
 }
