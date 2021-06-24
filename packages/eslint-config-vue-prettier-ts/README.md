@@ -9,8 +9,8 @@
 
 ## 安装
 
-- `npm i @bello/eslint-config-vue-prettier-ts --dev` or
-- `yarn add @bello/eslint-config-vue-prettier-ts -D`
+- `npm i @belloai/eslint-config-vue-prettier-ts --dev` or
+- `yarn add @belloai/eslint-config-vue-prettier-ts -D`
 
 > 使用 yarn 如果出现错误的话 需要补充安装 `yarn add eslint-plugin-prettier@latest -D`
 
@@ -20,7 +20,7 @@
 
 ```javascript
 module.exports = {
-  extends: ['@bello/eslint-config-vue-prettier-ts']
+  extends: ['@belloai/eslint-config-vue-prettier-ts']
 }
 ```
 

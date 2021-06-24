@@ -4,14 +4,14 @@
 
 ## 安装
 
-`yarn add @bello/bello-tsconfig -D` or `npm i @bello/bello-tsconfig --dev`
+`yarn add @belloai/bello-tsconfig -D` or `npm i @belloai/bello-tsconfig --dev`
 
 ## 使用
 
 ```json
 // ./tsconfig.json
 {
-  "extends": "@bello/bello-tsconfig",
+  "extends": "@belloai/bello-tsconfig",
   "compilerOptions": {
     "baseUrl": "."
   },

@@ -1,5 +1,5 @@
 {
-  "name": "@bello/eslint-config-vue-prettier-ts",
+  "name": "@belloai/eslint-config-vue-prettier-ts",
   "version": "1.2.0",
   "description": "Bello 前端vue项目代码规范",
   "keywords": [
@@ -40,5 +40,5 @@
     "eslint-plugin-vue": "^7.11.1",
     "prettier": "^2.3.1"
   },
-  "gitHead": "0ee1f910789a8fe4cf4490e673efea834179d221"
+  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b"
 }
