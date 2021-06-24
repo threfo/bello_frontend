@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-vue-prettier-ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bello 前端vue项目代码规范",
   "keywords": [
     "eslint",
