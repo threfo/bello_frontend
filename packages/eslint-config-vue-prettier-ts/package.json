@@ -1,0 +1,43 @@
+{
+  "name": "eslint-config-vue-prettier-ts",
+  "version": "1.0.0",
+  "description": "Bello 前端vue项目代码规范",
+  "keywords": [
+    "eslint",
+    "vue",
+    "prettier",
+    "ts"
+  ],
+  "author": "thomas-ballo <liurongliang@balloai.com>",
+  "homepage": "https://github.com/thomas-bello/bello_frontend#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomas-bello/bello_frontend.git",
+    "directory": "packages/eslint-config-vue-prettier-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/thomas-bello/bello_frontend/issues"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "eslint": "^7.29.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.11.1",
+    "prettier": "^2.3.1"
+  },
+  "peerDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.11.1",
+    "prettier": "^2.3.1"
+  }
+}

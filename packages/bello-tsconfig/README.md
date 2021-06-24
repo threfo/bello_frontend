@@ -32,30 +32,6 @@
 
 [tsconfig.json](./tsconfig.json) 内容
 
-```json
-{
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "noImplicitAny": false, // 后期需要删除 https://daief.tech/2018-09-04/declaration-files-of-typescript.html
-    "baseUrl": ".",
-    "types": ["jest"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-  }
-}
-```
-
 ### 更多 ts 的详细学习
 
 - [TypeScript 中文手册](https://typescript.bootcss.com/tsconfig-json.html)
