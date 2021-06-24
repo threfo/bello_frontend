@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/thomas-bello/bello_frontend/issues"
   },
-  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b"
+  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b",
+  "dependencies": {
+    "@belloai/bello-tsconfig": "^0.0.1"
+  }
 }

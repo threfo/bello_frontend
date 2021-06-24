@@ -24,10 +24,18 @@ lerna add lodash --scope=utils #添加 lodash 到 utils
 
 注意 `lerna add` 只能一个一个依赖添加，`--scope=` 不指定则全部都添加
 
+`--scope=` 后的指定的包不是文件夹名字，而是里面的 `package.json` 内的 `name`
+
 ### 添加新的 git submodule
 
 ```bash
 git submodule add git@github.com:thomas-bello/subapp_vue_demo.git projects/subapp_vue_demo
+```
+
+### 发布 packages
+
+```bash
+lerna publish
 ```
 
 ### 学习资料
