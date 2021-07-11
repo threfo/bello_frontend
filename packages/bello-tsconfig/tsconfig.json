@@ -12,10 +12,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "baseUrl": ".",
-    "types": ["jest"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
+    "types": ["webpack-env", "jest"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   }
 }

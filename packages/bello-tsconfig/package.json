@@ -20,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/thomas-bello/bello_frontend/issues"
   },
-  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b"
+  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@vue/cli-plugin-typescript": "^4.5.13"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.14"
+  }
 }
