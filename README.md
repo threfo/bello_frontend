@@ -38,6 +38,8 @@ git submodule add git@github.com:thomas-bello/subapp_vue_demo.git projects/subap
 lerna publish
 ```
 
+发布权限 找 晓辉在npm 的 belloai group 中把你添加进去
+
 ### 学习资料
 
 - [Git 中 submodule 的使用](https://zhuanlan.zhihu.com/p/87053283)
