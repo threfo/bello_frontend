@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Bello 前端项目推荐的 typescript 配置",
   "author": "thomas-ballo <liurongliang@balloai.com>",
-  "homepage": "https://github.com/thomas-bello/bello_frontend#readme",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
   "license": "ISC",
   "main": "tsconfig.json",
   "files": [
@@ -14,11 +14,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomas-bello/bello_frontend.git",
+    "url": "git+https://github.com/threfo/bello_frontend.git",
     "directory": "packages/bello-tsconfig"
   },
   "bugs": {
-    "url": "https://github.com/thomas-bello/bello_frontend/issues"
+    "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b",
   "types": "./lib/index.d.ts",

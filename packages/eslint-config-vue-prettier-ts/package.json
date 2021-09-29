@@ -9,7 +9,7 @@
     "ts"
   ],
   "author": "thomas-ballo <liurongliang@balloai.com>",
-  "homepage": "https://github.com/thomas-bello/bello_frontend#readme",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
   "license": "ISC",
   "main": "index.js",
   "publishConfig": {
@@ -17,11 +17,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomas-bello/bello_frontend.git",
+    "url": "git+https://github.com/threfo/bello_frontend.git",
     "directory": "packages/eslint-config-vue-prettier-ts"
   },
   "bugs": {
-    "url": "https://github.com/thomas-bello/bello_frontend/issues"
+    "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.0",

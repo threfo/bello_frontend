@@ -29,7 +29,7 @@ lerna add lodash --scope=utils #添加 lodash 到 utils
 ### 添加新的 git submodule
 
 ```bash
-git submodule add git@github.com:thomas-bello/subapp_vue_demo.git projects/subapp_vue_demo
+git submodule add git@github.com:threfo/subapp_vue_demo.git projects/subapp_vue_demo
 ```
 
 ### 发布 packages
@@ -38,11 +38,11 @@ git submodule add git@github.com:thomas-bello/subapp_vue_demo.git projects/subap
 lerna publish
 ```
 
-发布权限 找 晓辉在npm 的 belloai group 中把你添加进去
+发布权限 找 晓辉在 npm 的 belloai group 中把你添加进去
 
 ### 学习资料
 
 - [Git 中 submodule 的使用](https://zhuanlan.zhihu.com/p/87053283)
 - [git-submodule 官方文档](https://git-scm.com/docs/git-submodule)
-- [使用 Lerna 构建项目](https://github.com/thomas-bello/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
+- [使用 Lerna 构建项目](https://github.com/threfo/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
 - [用 GitHub Actions 实现自动发布 NPM 包](https://www.jianshu.com/p/fe4691bab958)
