@@ -6,9 +6,14 @@
 
 如果对以上知识点不了解，请先阅读`学习资料`的相关模块先建立起初步认知
 
-## Start up
+### 项目基础文件结构说明
 
-### 公共组件/包开发
+```bash
+- packages # 公共依赖/组件
+- projects # 所有子项目
+```
+
+## Start up
 
 ### 子项目开发
 
@@ -16,13 +21,28 @@
 
 ```bash
 git submodule init # 初始化子项目
-
-git submodule update # 下载所有的子项目
+git submodule update projects/subapp_vue_demo # 这是拉取某一个子项目 projects/subapp_vue_demo 这个名字请看 .gitmodules 文件
 ```
 
-## 常用命令
+```bash
+git submodule update # 下载所有的子项目 (不太建议，因为不是所有的子项目你都需要关注，而且你会等到慌)
+```
 
-### 添加 `packages` 项
+#### 平时开发时如果想拉取所有子项目的更新时可以用
+
+```bash
+git submodule foreach git pull
+```
+
+#### 添加新的 git submodule
+
+```bash
+git submodule add git@github.com:threfo/subapp_vue_demo.git projects/subapp_vue_demo
+```
+
+### 公共组件/包开发
+
+#### 添加 `packages` 项
 
 ```bash
 lerna create packages-name #packages-name 要添加的 package 名字
@@ -30,7 +50,7 @@ lerna create packages-name #packages-name 要添加的 package 名字
 
 `packages-name` 建议带 `bello-` 前缀
 
-### 添加 packages 内的依赖
+#### 添加 `packages` 内的依赖
 
 ```bash
 lerna add lodash --scope=utils #添加 lodash 到 utils
@@ -39,12 +59,6 @@ lerna add lodash --scope=utils #添加 lodash 到 utils
 注意 `lerna add` 只能一个一个依赖添加，`--scope=` 不指定则全部都添加
 
 `--scope=` 后的指定的包不是文件夹名字，而是里面的 `package.json` 内的 `name`
-
-### 添加新的 git submodule
-
-```bash
-git submodule add git@github.com:threfo/subapp_vue_demo.git projects/subapp_vue_demo
-```
 
 ### 发布 packages
 
@@ -56,6 +70,7 @@ lerna publish
 
 ### 学习资料
 
+- [如何在大型项目中使用 Git 子模块开发(必读)](https://juejin.cn/post/6844903746166587405)
 - [Git 中 submodule 的使用](https://zhuanlan.zhihu.com/p/87053283)
 - [git-submodule 官方文档](https://git-scm.com/docs/git-submodule)
 - [使用 Lerna 构建项目](https://github.com/threfo/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
