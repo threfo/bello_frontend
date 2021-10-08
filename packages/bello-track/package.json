@@ -25,8 +25,12 @@
   "files": [
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:threfo/bello_frontend.git"
-  }
+  },
+  "gitHead": "24549f62d7401e6d6bfcbc922b9c4e89f38c2418"
 }
