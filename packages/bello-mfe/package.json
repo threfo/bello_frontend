@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-mfe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "> TODO: description",
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -28,6 +28,6 @@
   },
   "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b",
   "dependencies": {
-    "@belloai/bello-tsconfig": "^0.0.2"
+    "@belloai/bello-tsconfig": "^0.0.3"
   }
 }
