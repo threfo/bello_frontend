@@ -16,7 +16,7 @@ export class Apm {
   private static apm: Apm
   public elasticApm
   constructor(payload: ApmConfig) {
-    const { userInfo, initConfig } = payload || {}
+    const { userInfo, initConfig = {} } = payload || {}
     this.elasticApm = window.elasticApm.init(initConfig)
     const { user_id } = userInfo || {}
     if (user_id) {

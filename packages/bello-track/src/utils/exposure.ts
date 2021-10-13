@@ -1,7 +1,7 @@
 import { TrackConfig, TrackParams } from '../helper/interface'
 // eventReport事件上报
 function exposureCreate(data, fetchConfig) {
-  const { url, ...config } = fetchConfig
+  const { url, token, ...config } = fetchConfig
   const { headers, ...baseConfig } = config
   return fetch(url, {
     method: 'POST',
@@ -11,6 +11,8 @@ function exposureCreate(data, fetchConfig) {
       'Cache-Control': 'no-cache',
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+      'x-channel': 'osr',
       ...headers
     },
     ...baseConfig

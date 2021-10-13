@@ -1,7 +1,7 @@
-export interface Vue {
-  prototype: {
-    $trackReport: (value: any) => void
-  }
+export interface ExtraConfig {
+  userInfo?: any
+  token: string
+  eventMapParams: any
 }
 export interface ApmConfig {
   userInfo?: any
@@ -18,18 +18,12 @@ export interface EventConfig {
   fetchConfig: {
     method?: string
     url: string
-    headers: {
-      Authorization: string
-      'x-channel': string
-      'Cache-Control'?: string
-      Accept?: string
-      'Content-Type'?: string
-    }
+    headers?: any
+    token
   }
 }
 
 export interface TrackConfig {
-  eventMap: any
   apmConfig: ApmConfig
   eventConfig: EventConfig
 }

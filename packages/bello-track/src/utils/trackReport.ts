@@ -2,6 +2,7 @@
 import { Apm } from './apm'
 import { eventReport } from './exposure'
 import { TrackConfig, TrackParams } from '../helper/interface'
+
 const trackEventMap = {
   apm: async (trackParams, config) => {
     const { apmConfig } = config || {}
