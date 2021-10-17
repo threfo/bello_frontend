@@ -21,12 +21,16 @@
 
 ```bash
 git submodule init # 初始化子项目
-git submodule update projects/subapp_vue_demo # 这是拉取某一个子项目 projects/subapp_vue_demo 这个名字请看 .gitmodules 文件
+git submodule update projects/subapp_vue_demo # 这是拉取某一个子项目
 ```
 
+上面命令中的 `projects/subapp_vue_demo` 这个名字请看 `.gitmodules` 文件，所有的子项目单独下载时的名字都在里面
+
 ```bash
-git submodule update # 下载所有的子项目 (不太建议，因为不是所有的子项目你都需要关注，而且你会等到慌)
+git submodule update # 下载所有的子项目
 ```
+
+不太建议下载所有的子项目的操作，因为不是所有的子项目你都需要关注，而且你会等到慌
 
 #### 平时开发时如果想拉取所有子项目的更新时可以用
 
@@ -39,6 +43,8 @@ git submodule foreach git pull
 ```bash
 git submodule add git@github.com:threfo/subapp_vue_demo.git projects/subapp_vue_demo
 ```
+
+上面命令的 `git@github.com:threfo/subapp_vue_demo.git` 为仓库地址，`projects/subapp_vue_demo` 为储存路径，这里我们约定所有的子项目都存放在 `projects` 文件夹中
 
 ### 公共组件/包开发
 
@@ -75,3 +81,4 @@ lerna publish
 - [git-submodule 官方文档](https://git-scm.com/docs/git-submodule)
 - [使用 Lerna 构建项目](https://github.com/threfo/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
 - [用 GitHub Actions 实现自动发布 NPM 包](https://www.jianshu.com/p/fe4691bab958)
+- [从 0 构建自己的脚手架/CLI 知识体系（万字）](https://juejin.cn/post/6966119324478079007)
