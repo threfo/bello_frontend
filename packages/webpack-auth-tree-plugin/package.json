@@ -1,0 +1,27 @@
+{
+  "name": "@belloai/webpack-auth-tree-plugin",
+  "version": "0.0.1",
+  "description": "Bello Auth Tree 前端获取权限树",
+  "main": "libs/index.js",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "@babel/core": "^7.15.8",
+    "@babel/parser": "^7.15.8",
+    "@babel/types": "^7.15.6",
+    "babel-traverse": "^6.26.0",
+    "@vue/component-compiler-utils": "^3.3.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/threfo/bello_frontend.git",
+    "directory": "packages/bello-tsconfig"
+  },
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
+  },
+  "peerDependencies": {
+    "vue": "2.x"
+  }
+}
