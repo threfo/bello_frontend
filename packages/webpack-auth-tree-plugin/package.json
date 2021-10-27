@@ -1,6 +1,6 @@
 {
   "name": "@belloai/webpack-auth-tree-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Bello Auth Tree 前端获取权限树",
   "main": "index.js",
   "license": "ISC",
