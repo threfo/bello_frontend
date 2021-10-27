@@ -25,7 +25,7 @@ module.exports = class Auth {
       return false
     }
 
-    const { permission: permissionArr } = this.$store.state || {}
+    const { permission: permissionArr } = store.state || {}
     return (permissionArr || []).includes(permission)
   }
 }
