@@ -4,3 +4,6 @@
 [submodule "projects/master_vue_demo"]
 	path = projects/master_vue_demo
 	url = git@github.com:threfo/master_vue_demo.git
+[submodule "projects/btp_f_master"]
+	path = projects/btp_f_master
+	url = git@github.com:threfo/btp_f_master.git
