@@ -13,6 +13,17 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "types": ["webpack-env", "jest"],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-  }
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
 }
