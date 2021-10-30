@@ -11,8 +11,8 @@ export default class Auth {
     menu
   }: {
     authFn?: any
-    routes: any
-    menu: any
+    routes: utils._RouteConfig[]
+    menu: utils.MenuItem[]
   }) {
     this.authFn =
       Object.prototype.toString.call(authFn) === '[object Function]'
@@ -20,8 +20,8 @@ export default class Auth {
         : utils.defaultAuthFn
 
     this.routeMap = utils.getRouterMapByRouter(routes)
-    this.menu = utils.getMenuByRouteMap(menu, this.routeMap)
     this.permissionRouterMap = utils.getPermissionMapByRouterMap(this.routeMap)
+    this.menu = utils.getMenuByRouteMap(menu, this.routeMap)
   }
   static install(Vue): void {
     Vue.prototype.$auth = function (permission: string): boolean {
@@ -32,6 +32,16 @@ export default class Auth {
 
       return haveAuth
     }
+  }
+  updateRouter(routes: utils._RouteConfig[]): utils._RouteConfig[] {
+    this.routeMap = utils.getRouterMapByRouter(routes)
+    this.permissionRouterMap = utils.getPermissionMapByRouterMap(this.routeMap)
+
+    return routes
+  }
+  updateMenu(menu: utils.MenuItem[]): utils.MenuItem[] {
+    this.menu = utils.getMenuByRouteMap(menu, this.routeMap)
+    return this.menu
   }
   checkRoutePermission({
     route,
@@ -46,5 +56,8 @@ export default class Auth {
       ),
       permissions
     })
+  }
+  getMenuByPermissions(permissions: string[]): utils.MenuItem[] {
+    return utils.getPermissionMenuList(this.routeMap, this.menu, permissions)
   }
 }

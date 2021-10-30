@@ -162,12 +162,10 @@ export const getPermissionMenuItem = ({
 }
 
 export const getPermissionMenuList = (
-  routes: RouteConfig[],
+  routerMap: Map<string, RouteConfig>,
   menus: MenuItem[],
   permissions: string[]
 ): MenuItem[] => {
-  const routerMap = getRouterMapByRouter(routes)
-
   return getMenuByRouteMap(menus, routerMap).filter(menu =>
     getPermissionMenuItem({
       routerPermissions: getPermissionMapByRouterMap(routerMap).get(menu.index),

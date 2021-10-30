@@ -19,5 +19,5 @@ export declare const getPermissionMenuItem: ({ routerPermissions, permissions }:
     routerPermissions: string[] | undefined;
     permissions: string[];
 }) => boolean;
-export declare const getPermissionMenuList: (routes: RouteConfig[], menus: MenuItem[], permissions: string[]) => MenuItem[];
+export declare const getPermissionMenuList: (routerMap: Map<string, RouteConfig>, menus: MenuItem[], permissions: string[]) => MenuItem[];
 export declare const defaultAuthFn: (permission: string, permissions: string[]) => boolean;
