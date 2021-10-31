@@ -1,5 +1,5 @@
 {
-  "name": "@bello/vue-auth",
+  "name": "@belloai/bello-vue-auth",
   "version": "0.0.1",
   "main": "lib/auth.min.js",
   "license": "ISC",
@@ -32,16 +32,13 @@
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "peerDependencies": {
-    "vue": "^2.6.14"
+    "vue": "^2.6.11"
   },
-  "description": "vue 鉴权插件",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
+  "description": "vue 鉴权插件",
   "author": "李广远 <liguangyuan@belloai.com>",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
-  },
-  "publishConfig": {
-    "registry": "http://registry.npm.taobao.org/"
   }
 }
