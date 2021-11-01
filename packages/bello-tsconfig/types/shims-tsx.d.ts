@@ -1,3 +1,4 @@
+// eslint-disable-next-line vue/script-setup-uses-vars
 import Vue, { VNode } from 'vue'
 
 declare global {
