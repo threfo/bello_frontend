@@ -11,7 +11,7 @@
   "main": "index.js",
   "bin": "index.js",
   "publishConfig": {
-    "registry": "https://registry.yarnpkg.com/"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,6 @@
   },
   "dependencies": {
     "ejs": "^3.1.6"
-  }
+  },
+  "gitHead": "5b51e7ae00eac75c274520232345f8e9a0f5096a"
 }
