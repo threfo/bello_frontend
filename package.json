@@ -12,6 +12,7 @@
     ]
   },
   "devDependencies": {
+    "vue": "^2.6.14",
     "@belloai/bello-tsconfig": "^0.0.1",
     "@belloai/eslint-config-vue-prettier-ts": "^0.0.1",
     "@commitlint/cli": "^12.1.4",
@@ -30,6 +31,7 @@
   },
   "scripts": {
     "test": "jest",
+    "init:lerna": "lerna bootstrap",
     "lint": "vue-cli-service lint",
     "build": "lerna run --stream --concurrency 1 --sort build",
     "lv": "lerna version --no-commit-hooks --no-git-tag-version --no-private",

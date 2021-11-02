@@ -15,6 +15,12 @@
 
 ## Start up
 
+安装相关依赖
+
+```bash
+yarn init:lerna
+```
+
 ### 子项目开发
 
 使用 `git clone` 本项目下来的之后，你会发现 `projects` 内的子项目都是空文件，这个时候你需要把子项目的代码下载才可以方便开发。当然你也可以单独的 `git clone` 子项目进行开发，但是这样会没那么方便，也享受不了集合开发的方便性
@@ -79,6 +85,6 @@ lerna publish
 - [如何在大型项目中使用 Git 子模块开发(必读)](https://juejin.cn/post/6844903746166587405)
 - [Git 中 submodule 的使用](https://zhuanlan.zhihu.com/p/87053283)
 - [git-submodule 官方文档](https://git-scm.com/docs/git-submodule)
-- [使用 Lerna 构建项目](https://github.com/threfo/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
+- [使用 Lerna 构建项目](https://github.com/ThomasLiu/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
 - [用 GitHub Actions 实现自动发布 NPM 包](https://www.jianshu.com/p/fe4691bab958)
 - [从 0 构建自己的脚手架/CLI 知识体系（万字）](https://juejin.cn/post/6966119324478079007)
