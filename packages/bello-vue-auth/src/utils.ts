@@ -81,11 +81,12 @@ export const getMenuByRouteMap = (
   return menuList
     .map((menu: MenuItem | any) => {
       const { index: menuPath, name: menuName, children } = menu
+
       const route = routeMap.get(menuPath)
       const childrenList = getMenuByRouteMap(children, routeMap)
 
       if ((!route || !route?.name) && (!childrenList || !childrenList.length)) {
-        console.warn(`${menuPath} 没有定义在路由中`)
+        console.warn(`${menuPath} 没有定义在路由中, 或没有声明name`)
         return null
       }
 
@@ -148,6 +149,7 @@ export const getPermissionMenuItem = ({
   permissions: string[]
 }): boolean => {
   const needChecks = routerPermissions || []
+
   if (
     !needChecks.length ||
     needChecks.some(rule => rule.split('#').includes('not_auth'))
@@ -171,9 +173,14 @@ export const getPermissionMenuList = (
   menus: MenuItem[],
   permissions: string[]
 ): MenuItem[] => {
-  return getMenuByRouteMap(menus, routerMap).filter(menu =>
+  const filterMenus = getMenuByRouteMap(menus, routerMap)
+  const routePermissionMap = getPermissionMapByRouterMap(routerMap)
+
+  console.log(filterMenus, routePermissionMap)
+
+  return filterMenus.filter(menu =>
     getPermissionMenuItem({
-      routerPermissions: getPermissionMapByRouterMap(routerMap).get(menu.index),
+      routerPermissions: routePermissionMap.get(menu.index),
       permissions
     })
   )
