@@ -34,7 +34,7 @@
     "init:lerna": "lerna bootstrap",
     "lint": "vue-cli-service lint",
     "build": "lerna run --stream --concurrency 1 --sort build",
-    "lv": "lerna version --no-commit-hooks --no-git-tag-version --no-private",
+    "lv": "lerna version --amend --no-commit-hooks --no-git-tag-version --no-private",
     "lp": "lerna publish from-package",
     "jscpd": "jscpd .",
     "lint:all:eslint": "yarn lint:eslint --ext .js,.vue .",

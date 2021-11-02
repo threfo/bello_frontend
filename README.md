@@ -88,3 +88,7 @@ lerna publish
 - [使用 Lerna 构建项目](https://github.com/ThomasLiu/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
 - [用 GitHub Actions 实现自动发布 NPM 包](https://www.jianshu.com/p/fe4691bab958)
 - [从 0 构建自己的脚手架/CLI 知识体系（万字）](https://juejin.cn/post/6966119324478079007)
+
+### API
+
+- [Lerna 指令大全](http://www.febeacon.com/lerna-docs-zh-cn/routes/commands/)
