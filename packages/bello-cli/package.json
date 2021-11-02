@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "bello 的cli",
   "keywords": [
     "cli"
