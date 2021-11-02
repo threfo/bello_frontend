@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-tsconfig",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Bello 前端项目推荐的 typescript 配置",
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
-  "gitHead": "5b51e7ae00eac75c274520232345f8e9a0f5096a",
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
   "types": "types/index.d.ts",
   "dependencies": {
     "@types/jest": "^24.0.19",
