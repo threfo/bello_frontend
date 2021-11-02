@@ -155,10 +155,15 @@ export const getPermissionMenuItem = ({
     return true
   }
 
-  return needChecks.some(
-    rule =>
-      permissions.includes(rule) || permissions.includes(rule.split('#')?.[0])
-  )
+  const permissionMap = getPermissionMapByPermission(permissions)
+  const authRule = needChecks.find(rule => !~rule.indexOf('#')) || ''
+  const authPermissionList = permissionMap.get(authRule) || []
+
+  if (authPermissionList?.length > 1) {
+    return needChecks.every(rule => permissions.includes(rule))
+  } else {
+    return authPermissionList.includes(authRule)
+  }
 }
 
 export const getPermissionMenuList = (
