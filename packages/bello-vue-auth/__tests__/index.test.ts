@@ -265,14 +265,14 @@ describe('src/utils.ts', () => {
       ['/', ['not_auth', 'not_auth#/']],
       ['/main', ['not_auth', 'not_auth#/main']],
       ['/main/xsearch', ['not_auth', 'not_auth#/main/xsearch']],
+      [
+        '/main/email',
+        ['view_talent_collect', 'view_talent_collect#/main/email']
+      ],
       ['/main/dashboard', ['view_dashboard', 'view_dashboard#/main/dashboard']],
       [
         '/main/enterprise-manage',
         ['view_business_manage', 'view_business_manage#/main/enterprise-manage']
-      ],
-      [
-        '/main/email',
-        ['view_talent_collect', 'view_talent_collect#/main/email']
       ]
     ])
 

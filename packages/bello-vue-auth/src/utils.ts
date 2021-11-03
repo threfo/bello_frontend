@@ -176,8 +176,6 @@ export const getPermissionMenuList = (
   const filterMenus = getMenuByRouteMap(menus, routerMap)
   const routePermissionMap = getPermissionMapByRouterMap(routerMap)
 
-  console.log(filterMenus, routePermissionMap)
-
   return filterMenus.filter(menu =>
     getPermissionMenuItem({
       routerPermissions: routePermissionMap.get(menu.index),
