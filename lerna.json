@@ -3,9 +3,13 @@
   "useWorkspaces": true,
   "npmClient": "yarn",
   "version": "independent",
+  "includeMergedTags": true,
   "command": {
     "version": {
       "allowBranch": "main"
+    },
+    "publish": {
+      "registry": "https://npm.pkg.github.com"
     }
   },
   "ignoreChanges": ["**/__fixtures__/**", "**/__tests__/**", "**/*.md"]

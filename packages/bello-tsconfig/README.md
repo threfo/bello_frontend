@@ -36,9 +36,5 @@
 
 - [TypeScript 中文手册](https://typescript.bootcss.com/tsconfig-json.html)
 - [TypeScript 官方文档](https://www.typescriptlang.org/docs/)
-
-用于检查第三方库的 types
-
-```bash
-npm install typings -g
-```
+- [typescript 声明文件加载机制以及在不同场景下的正确使用方式(必读)](https://zhuanlan.zhihu.com/p/133344957)
+- [深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese)
