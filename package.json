@@ -3,12 +3,12 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/**",
+      "packages/*",
       "projects/*"
     ],
     "nohoist": [
-      "**/vue",
-      "**/vue/**"
+      "**/vue*",
+      "**/vue*/**"
     ]
   },
   "devDependencies": {
@@ -35,9 +35,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
     "stylelint": "^13.13.1",
-    "typescript": "^4.3.4",
-    "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "typescript": "^4.3.4"
   },
   "scripts": {
     "test": "run-s test:unit test:e2e",
