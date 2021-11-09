@@ -1,4 +1,3 @@
 {
-  "extends": "@belloai/bello-tsconfig",
-  "include": ["packages", "projects"]
+  "extends": "@belloai/bello-tsconfig"
 }

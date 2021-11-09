@@ -9,6 +9,7 @@
   "typings": "lib/index.d.ts",
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
+    "@belloai/bello-tsconfig": "^0.0.4",
     "rollup": "^2.45.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
@@ -23,7 +24,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/threfo/bello_frontend.git",
-    "directory": "packages/bello-tsconfig"
+    "directory": "packages/bello-vue-auth"
   },
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
