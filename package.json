@@ -7,8 +7,9 @@
       "projects/*"
     ],
     "nohoist": [
-      "**/vue*",
-      "**/vue*/**"
+      "btp_f_master/**",
+      "master_vue_demo/**",
+      "subapp_vue_demo/**"
     ]
   },
   "devDependencies": {
@@ -39,7 +40,7 @@
   },
   "scripts": {
     "test": "run-s test:unit test:e2e",
-    "init:lerna": "lerna bootstrap",
+    "setup": "lerna bootstrap",
     "lint": "vue-cli-service lint",
     "build": "lerna run --stream --concurrency 1 --sort build",
     "lv": "lerna version --amend --no-commit-hooks --no-git-tag-version --no-private",
