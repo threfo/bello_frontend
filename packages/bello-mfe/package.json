@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-mfe",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "> TODO: description",
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -26,8 +26,8 @@
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
-  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b",
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
   "dependencies": {
-    "@belloai/bello-tsconfig": "^0.0.4"
+    "@belloai/bello-tsconfig": "^0.0.5"
   }
 }

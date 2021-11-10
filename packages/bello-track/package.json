@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-track",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "wanghuajin <wanghuajin@belloai.com>",
   "description": "track report",
   "main": "./lib/bello_track.min.js",
@@ -36,5 +36,5 @@
     "type": "git",
     "url": "git@github.com:threfo/bello_frontend.git"
   },
-  "gitHead": "24549f62d7401e6d6bfcbc922b9c4e89f38c2418"
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }

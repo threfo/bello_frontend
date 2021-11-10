@@ -1,17 +1,15 @@
 {
   "name": "@belloai/bello-vue-auth",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "lib/auth.min.js",
   "license": "ISC",
   "scripts": {
     "build": "rollup --config"
   },
   "typings": "lib/index.d.ts",
-  "dependencies": {
-    "vue-router": "^3.5.3"
-  },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
+    "@belloai/bello-tsconfig": "^0.0.4",
     "rollup": "^2.45.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
@@ -26,13 +24,14 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/threfo/bello_frontend.git",
-    "directory": "packages/bello-tsconfig"
+    "directory": "packages/bello-vue-auth"
   },
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "peerDependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.3"
   },
   "homepage": "https://github.com/threfo/bello_frontend#readme",
   "description": "vue 鉴权插件",
@@ -40,5 +39,6 @@
   "directories": {
     "lib": "lib",
     "test": "__tests__"
-  }
+  },
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }

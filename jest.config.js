@@ -1,5 +1,4 @@
 module.exports = {
-  testEnvironment: 'node',
-  testMatch: ['<rootDir>/**/*.test.ts'],
-  testPathIgnorePatterns: ['/src/', 'node_modules', '*/node_modules'],
+  preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
+  testMatch: ['<rootDir>/**/*.test.ts']
 }

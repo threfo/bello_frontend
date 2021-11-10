@@ -1,6 +1,6 @@
 {
   "name": "@belloai/webpack-auth-tree-plugin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Bello Auth Tree 前端获取权限树",
   "main": "lib/index.js",
   "license": "ISC",
@@ -38,5 +38,6 @@
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
-  }
+  },
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }

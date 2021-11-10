@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "bello 的cli",
   "keywords": [
     "cli"
@@ -11,7 +11,7 @@
   "main": "index.js",
   "bin": "index.js",
   "publishConfig": {
-    "registry": "https://registry.yarnpkg.com/"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,6 @@
   },
   "dependencies": {
     "ejs": "^3.1.6"
-  }
+  },
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }

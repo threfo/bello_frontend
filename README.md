@@ -18,7 +18,7 @@
 安装相关依赖
 
 ```bash
-yarn init:lerna
+yarn setup # lerna bootstrap
 ```
 
 ### 子项目开发
@@ -38,6 +38,16 @@ git submodule update # 下载所有的子项目
 
 不太建议下载所有的子项目的操作，因为不是所有的子项目你都需要关注，而且你会等到慌
 
+### 启动子项目
+
+不要 `cd` 到子项目的文件夹内运行命令启动，会有依赖关系的混淆问题，建议在项目根目录下运行
+
+```bash
+yarn workspace subapp_vue_demo serve
+```
+
+`subapp_vue_demo` 为项目名，是你想启动的子项目里面的 `package.json` 内的 `name`
+
 #### 平时开发时如果想拉取所有子项目的更新时可以用
 
 ```bash
@@ -51,6 +61,24 @@ git submodule add git@github.com:threfo/subapp_vue_demo.git projects/subapp_vue_
 ```
 
 上面命令的 `git@github.com:threfo/subapp_vue_demo.git` 为仓库地址，`projects/subapp_vue_demo` 为储存路径，这里我们约定所有的子项目都存放在 `projects` 文件夹中
+
+然后需要在根目录的 `package.json` 内添加
+
+```json
+{
+  "workspaces": {
+    ...
+    "nohoist": [
+      ...
+      "subapp_vue_demo/**"
+    ]
+  }
+}
+```
+
+`subapp_vue_demo` 为项目名，是你新加入子项目里面的 `package.json` 内的 `name`
+
+所以为了更方便前面 `git submodule add` 时的 `projects/*` 定义文件夹的时的文件夹名最好也是和 `package.json` 内的 `name` 一致
 
 ### 公共组件/包开发
 
@@ -88,3 +116,8 @@ lerna publish
 - [使用 Lerna 构建项目](https://github.com/ThomasLiu/mfe_showcase/blob/leason_1_lerna/doc/leason_1_lerna.md)
 - [用 GitHub Actions 实现自动发布 NPM 包](https://www.jianshu.com/p/fe4691bab958)
 - [从 0 构建自己的脚手架/CLI 知识体系（万字）](https://juejin.cn/post/6966119324478079007)
+- [基于 Yarn WorkSpace + Lerna + OrangeCI 搭建 Typescript Monorepo 项目实践](https://cloud.tencent.com/developer/article/1659352)
+
+### API
+
+- [Lerna 指令大全](http://www.febeacon.com/lerna-docs-zh-cn/routes/commands/)

@@ -1,14 +1,13 @@
 {
   "name": "@belloai/bello-tsconfig",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "Bello 前端项目推荐的 typescript 配置",
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
   "license": "ISC",
   "main": "tsconfig.preset.json",
   "files": [
-    "tsconfig.preset.json",
-    "types/*.d.ts"
+    "tsconfig.preset.json"
   ],
   "publishConfig": {
     "access": "public"
@@ -21,16 +20,8 @@
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
-  "gitHead": "46f9a041bc756d2c6b8032cc19de2dd22d2c5d2b",
-  "types": "types/index.d.ts",
-  "dependencies": {
-    "@vue/cli-plugin-typescript": "^4.5.13",
-    "@types/jest": "^24.0.19",
-    "@types/webpack-env": "^1.15.2",
-    "@types/node": "^14.14.20"
-  },
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
   "peerDependencies": {
-    "vue": "^2.6.14",
     "typescript": "~4.1.5"
   }
 }
