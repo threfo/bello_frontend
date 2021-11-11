@@ -168,20 +168,52 @@ export const getPermissionMenuItem = ({
   }
 }
 
+export const getFilterPermissionMenu = (
+  routeMenus: MenuItem[],
+  routePermissionMap: Map<string, string[]>,
+  permissions: string[]
+): MenuItem[] => {
+  const filterMenu: MenuItem[] = []
+  routeMenus.forEach(menu => {
+    const hasMenu = getPermissionMenuItem({
+      routerPermissions: routePermissionMap.get(menu.index),
+      permissions
+    })
+
+    if (hasMenu) {
+      let children = menu?.children
+
+      if (children) {
+        children = getFilterPermissionMenu(
+          children,
+          routePermissionMap,
+          permissions
+        )
+
+        if (children?.length) {
+          filterMenu.push({
+            ...menu,
+            children
+          })
+        }
+      } else {
+        filterMenu.push(menu)
+      }
+    }
+  })
+
+  return filterMenu
+}
+
 export const getPermissionMenuList = (
   routerMap: Map<string, RouteConfig>,
   menus: MenuItem[],
   permissions: string[]
 ): MenuItem[] => {
-  const filterMenus = getMenuByRouteMap(menus, routerMap)
+  const routeMenus = getMenuByRouteMap(menus, routerMap)
   const routePermissionMap = getPermissionMapByRouterMap(routerMap)
 
-  return filterMenus.filter(menu =>
-    getPermissionMenuItem({
-      routerPermissions: routePermissionMap.get(menu.index),
-      permissions
-    })
-  )
+  return getFilterPermissionMenu(routeMenus, routePermissionMap, permissions)
 }
 
 export const defaultAuthFn = (
