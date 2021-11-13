@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-vue-auth",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "vue 鉴权插件",
   "author": "李广远 <liguangyuan@belloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
