@@ -1,5 +1,3 @@
-import './public-path'
-
 export interface VueRouterProps {
   subAppBase: string
   routes: any[]
@@ -14,7 +12,7 @@ export interface SubAppVue2Props {
   mountId?: string
   vueRouterProps: VueRouterProps
   vueProps: any
-  onMount
+  onSelfMount?: () => void
 }
 
 function render(props: SubAppVue2Props) {
@@ -25,7 +23,8 @@ function render(props: SubAppVue2Props) {
     App,
     mountId = '#app',
     vueRouterProps,
-    vueProps
+    vueProps,
+    onSelfMount
   } = props || {}
 
   const { base = '/', subAppBase } = vueRouterProps || {}
@@ -44,13 +43,17 @@ function render(props: SubAppVue2Props) {
     render: (h: any) => h(App)
   }).$mount(mountId)
 
+  if (!(<any>window).__POWERED_BY_QIANKUN__ && !!onSelfMount) {
+    onSelfMount()
+  }
+
   return {
     router,
     instance
   }
 }
 
-export const initSubAppVue2 = (props: SubAppVue2Props) => {
+export const initSubApp = (props: SubAppVue2Props) => {
   let instance: any = null
   let router: any = null
 

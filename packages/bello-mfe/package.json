@@ -12,12 +12,11 @@
     "lib": "lib",
     "test": "__tests__"
   },
-  "main": "./lib/index.min.js",
-  "typings": "./lib/index.d.ts",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "src",
-    "lib/*.js",
-    "lib/*.d.ts"
+    "lib"
   ],
   "repository": {
     "type": "git",
@@ -28,7 +27,8 @@
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "scripts": {
-    "build": "rollup --config"
+    "build": "rimraf lib/* && rollup -c",
+    "watch": "rimraf lib/* && rollup -c -w"
   },
   "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }

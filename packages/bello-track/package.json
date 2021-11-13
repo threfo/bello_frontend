@@ -3,9 +3,11 @@
   "version": "0.0.5",
   "author": "wanghuajin <wanghuajin@belloai.com>",
   "description": "track report",
-  "main": "./lib/index.min.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rollup --config"
+    "build": "rimraf lib/* && rollup -c",
+    "watch": "rimraf lib/* && rollup -c -w"
   },
   "license": "ISC",
   "dependencies": {
