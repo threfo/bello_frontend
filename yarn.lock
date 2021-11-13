@@ -976,16 +976,6 @@
   dependencies:
     "@vue/cli-plugin-typescript" "^4.5.13"
 
-"@belloai/bello-tsconfig@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@belloai/bello-tsconfig/-/bello-tsconfig-0.0.5.tgz#4b106cb54dc1663d1f40394e1e432cd2bbc39769"
-  integrity sha512-xUQekiUvcke0z2CczBHCTnkfywuUhVHnCk+XXSWAAG5W7ZwM1MMUL7fknmSiui4wHi6ulooKfDgKs4i8wwE/Nw==
-  dependencies:
-    "@types/jest" "^24.0.19"
-    "@types/node" "^14.14.20"
-    "@types/webpack-env" "^1.15.2"
-    "@vue/cli-plugin-typescript" "^4.5.13"
-
 "@belloai/eslint-config-vue-prettier-ts@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@belloai/eslint-config-vue-prettier-ts/-/eslint-config-vue-prettier-ts-0.0.1.tgz#db66972868346012c5fba20d0b30afa7a5c400d6"
@@ -18356,7 +18346,7 @@ vue-property-decorator@^9.1.2:
   resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-9.1.2.tgz#266a2eac61ba6527e2e68a6933cfb98fddab5457"
   integrity sha512-xYA8MkZynPBGd/w5QFJ2d/NM0z/YeegMqYTphy7NJQXbZcuU6FC6AOdUAcy4SXP+YnkerC6AfH+ldg7PDk9ESQ==
 
-vue-router@^3.2.0:
+vue-router@^3.2.0, vue-router@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.3.tgz#041048053e336829d05dafacf6a8fb669a2e7999"
   integrity sha512-FUlILrW3DGitS2h+Xaw8aRNvGTwtuaxrRkNSHWTizOfLUie7wuYwezeZ50iflRn8YPV5kxmU2LQuu3nM/b3Zsg==

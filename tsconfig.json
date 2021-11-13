@@ -1,3 +1,3 @@
 {
-  "extends": "@belloai/bello-tsconfig"
+  "extends": "./packages/bello-tsconfig/tsconfig.preset.json"
 }

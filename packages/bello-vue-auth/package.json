@@ -1,21 +1,19 @@
 {
   "name": "@belloai/bello-vue-auth",
   "version": "0.0.3",
-  "main": "lib/auth.min.js",
+  "description": "vue 鉴权插件",
+  "author": "李广远 <liguangyuan@belloai.com>",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
   "license": "ISC",
-  "scripts": {
-    "build": "rollup --config"
+  "publishConfig": {
+    "access": "public"
   },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "main": "lib/index.min.js",
   "typings": "lib/index.d.ts",
-  "devDependencies": {
-    "@rollup/plugin-typescript": "^8.2.1",
-    "@belloai/bello-tsconfig": "^0.0.4",
-    "rollup": "^2.45.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "tslib": "^2.3.1",
-    "typescript": "^4.3.4"
-  },
   "files": [
     "src",
     "lib/*.js",
@@ -33,12 +31,11 @@
     "vue": "^2.6.11",
     "vue-router": "^3.5.3"
   },
-  "homepage": "https://github.com/threfo/bello_frontend#readme",
-  "description": "vue 鉴权插件",
-  "author": "李广远 <liguangyuan@belloai.com>",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+  "scripts": {
+    "build": "rollup --config"
   },
-  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
+  "devDependencies": {
+    "vue-router": "^3.5.3"
+  }
 }
