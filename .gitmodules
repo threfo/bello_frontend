@@ -7,3 +7,6 @@
 [submodule "projects/btp_f_master"]
 	path = projects/btp_f_master
 	url = git@github.com:threfo/btp_f_master.git
+[submodule "projects/btp_frontend"]
+	path = projects/btp_frontend
+	url = git@github.com:threfo/btp_frontend.git

@@ -3,6 +3,7 @@ lerna-debug.log
 
 node_modules
 
+packages/**/lib
 dist/*
 /dist
 coverage
