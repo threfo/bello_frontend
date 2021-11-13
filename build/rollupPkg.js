@@ -1,26 +1,63 @@
-import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
 // 为了将引入的 npm 包，也打包进最终结果中
 import resolve from 'rollup-plugin-node-resolve'
+import babel from 'rollup-plugin-babel';
+import dts from 'rollup-plugin-dts'
+import { terser } from 'rollup-plugin-terser';
 
-export default ({ pkg, name, input = './src/index.ts', format = 'umd', context = 'window' }) => {
-  const { main: file, version } = pkg || {}
-  return {
+const extensions = ['.ts'];
+
+export default ({ pkg, name, input = './src/index.ts',  context = 'window' }) => {
+  const { module, version, types } = pkg || {}
+
+  const baseOutput = {
+    plugins: [terser()],
+    sourcemap: true,
+    footer:  `
+    if(typeof window !== 'undefined') {
+      window.${name}Version = '${version}'
+    }`
+  }
+
+  return [{
     input,
+    external: [
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.peerDependencies || {})
+    ],
+    plugins: [
+      resolve({ extensions }),
+      babel({ extensions, include: ['./src/**/*'] }),
+    ],
     output: [
       {
-        file,
-        format,
-        footer: `
-        if(typeof window !== 'undefined') {
-          window.${name}Version = '${version}'
-        }`,
+        ...baseOutput,
+        file: module, // package.json 中 "module": "dist/index.esm.js"
+        format: 'esm', // es module 形式的包， 用来import 导入， 可以tree shaking
+      }, {
+        ...baseOutput,
+        file: 'lib/index.cjs.js', // package.json 中 "main": "dist/index.cjs.js",
+        format: 'cjs', // commonjs 形式的包， require 导入
+      }, {
+        ...baseOutput,
+        file: 'lib/index.umd.js',
         name,
-        sourcemap: true,
-        plugins: [terser()]
+        format: 'umd', // umd 兼容形式的包， 可以直接应用于网页 script
       }
     ],
+    watch: {
+      chokidar: {
+        usePolling: true
+      }
+    },
     context,
-    plugins: [resolve(), typescript()]
-  }
+  }, {
+
+    // 生成 .d.ts 类型声明文件
+    input,
+    output: {
+      file: types,
+      format: 'es',
+    },
+    plugins: [dts()],
+  }]
 }
