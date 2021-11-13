@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-track",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "wanghuajin <wanghuajin@belloai.com>",
   "description": "track report",
   "main": "./lib/index.min.js",
