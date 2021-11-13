@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-vue-auth",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "vue 鉴权插件",
   "author": "李广远 <liguangyuan@belloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -33,7 +33,8 @@
   },
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
-    "watch": "rimraf lib/* && rollup -c -w"
+    "watch": "rimraf lib/* && rollup -c -w",
+    "prepublishOnly": "yarn run build"
   },
   "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
   "devDependencies": {

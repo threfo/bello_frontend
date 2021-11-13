@@ -1,13 +1,14 @@
 {
   "name": "@belloai/bello-track",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "wanghuajin <wanghuajin@belloai.com>",
   "description": "track report",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
-    "watch": "rimraf lib/* && rollup -c -w"
+    "watch": "rimraf lib/* && rollup -c -w",
+    "prepublishOnly": "yarn run build"
   },
   "license": "ISC",
   "dependencies": {

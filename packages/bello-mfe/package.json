@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-mfe",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "微前端工具",
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -28,7 +28,8 @@
   },
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
-    "watch": "rimraf lib/* && rollup -c -w"
+    "watch": "rimraf lib/* && rollup -c -w",
+    "prepublishOnly": "yarn run build"
   },
   "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }
