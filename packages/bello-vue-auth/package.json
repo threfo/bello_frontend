@@ -32,7 +32,8 @@
     "vue-router": "^3.5.3"
   },
   "scripts": {
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "prepublishOnly": "yarn run build"
   },
   "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
   "devDependencies": {

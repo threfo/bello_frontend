@@ -5,7 +5,8 @@
   "description": "track report",
   "main": "./lib/index.min.js",
   "scripts": {
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "prepublishOnly": "yarn run build"
   },
   "license": "ISC",
   "dependencies": {
