@@ -12,7 +12,7 @@
     "lib": "lib",
     "test": "__tests__"
   },
-  "module": "lib/index.js",
+  "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
@@ -28,16 +28,12 @@
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "peerDependencies": {
-    "vue": "^2.6.11",
-    "vue-router": "^3.5.3"
+    "vue": "^2.6.11"
   },
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "prepublishOnly": "yarn run build"
   },
-  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9",
-  "devDependencies": {
-    "vue-router": "^3.5.3"
-  }
+  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
 }

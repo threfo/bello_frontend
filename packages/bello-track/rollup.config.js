@@ -1,4 +1,4 @@
-import initRollup from '../../build/rollupPkg'
+import initRollup from '../../plugin/rollupPkg'
 
 import pkg from './package.json'
 

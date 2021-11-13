@@ -3,7 +3,7 @@
   "version": "0.0.7",
   "author": "wanghuajin <wanghuajin@belloai.com>",
   "description": "track report",
-  "module": "lib/index.js",
+  "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rimraf lib/* && rollup -c",

@@ -12,7 +12,7 @@
     "lib": "lib",
     "test": "__tests__"
   },
-  "module": "lib/index.js",
+  "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
