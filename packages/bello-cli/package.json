@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "bello 的cli",
   "keywords": [
     "cli"
@@ -29,5 +29,5 @@
   "dependencies": {
     "ejs": "^3.1.6"
   },
-  "gitHead": "22bd1c2fa2ef5aa75ff1e2a836672b2d23b691e9"
+  "gitHead": "f3a80f4c0850a370dfcedde35a530f95ccb57220"
 }
