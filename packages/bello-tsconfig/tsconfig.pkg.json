@@ -15,7 +15,7 @@
     "types": ["node", "webpack-env", "jest"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "paths": {
-      "@2bitlab/*": ["*/src/index"] //子包映射到对应目录
+      "@belloai/*": ["*/src/index"] //子包映射到对应目录
     },
     "declaration": true
   },
