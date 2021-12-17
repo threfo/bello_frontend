@@ -37,6 +37,6 @@
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
   "dependencies": {
-    "@belloai/qs": "^1.0.3"
+    "@belloai/qs": "^0.0.1"
   }
 }

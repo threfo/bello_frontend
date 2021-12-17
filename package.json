@@ -10,7 +10,14 @@
       "btp_f_master/**",
       "master_vue_demo/**",
       "subapp_vue_demo/**",
-      "btp_frontend/**"
+      "btp_frontend/**",
+      "@babel/ls/**",
+      "@babel/fetch/**",
+      "@babel/moment/**",
+      "@babel/state/**",
+      "@babel/qs/**",
+      "@babel/router/**",
+      "@babel/bello-vue-auth/**"
     ]
   },
   "devDependencies": {
