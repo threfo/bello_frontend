@@ -20,6 +20,7 @@
     "@babel/plugin-proposal-numeric-separator": "^7.16.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
     "@babel/plugin-syntax-flow": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
     "@belloai/eslint-config-vue-prettier-ts": "^0.0.1",
     "@commitlint/cli": "^12.1.4",
@@ -48,6 +49,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.45.1",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-dts": "^4.0.1",
     "rollup-plugin-generate-html-template": "^1.7.0",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -90,5 +92,79 @@
     ],
     "absolute": true,
     "gitignore": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "@belloai/eslint-config-vue-prettier-ts"
+    ]
+  },
+  "eslintIgnore": [
+    "build/*",
+    "config/*.js",
+    "dist/*.js",
+    "node_modules/*"
+  ],
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "htmlWhitespaceSensitivity": "strict",
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": true,
+    "proseWrap": "never",
+    "quoteProps": "as-needed",
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "useTabs": false,
+    "vueIndentScriptAndStyle": false,
+    "trailingComma": "none"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
+    "testMatch": [
+      "<rootDir>/packages/**/*.test.ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/projects/"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "yarn lint:eslint",
+      "yarn lint:prettier",
+      "yarn test:unit:git"
+    ],
+    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
+      "yarn lint:prettier --parser json"
+    ],
+    "package.json": [
+      "yarn lint:prettier"
+    ],
+    "*.vue": [
+      "yarn lint:eslint",
+      "yarn lint:stylelint",
+      "yarn lint:prettier",
+      "yarn test:unit:git"
+    ],
+    "*.scss": [
+      "yarn lint:stylelint",
+      "yarn lint:prettier"
+    ],
+    "*.md": [
+      "yarn lint:markdownlint",
+      "yarn lint:prettier"
+    ],
+    "*.{png,jpeg,jpg,gif,svg}": [
+      "imagemin-lint-staged"
+    ]
+  },
+  "stylelint": {
+    "extends": "@belloai/stylelint"
   }
 }
