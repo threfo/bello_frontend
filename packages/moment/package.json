@@ -1,0 +1,45 @@
+{
+  "name": "@belloai/moment",
+  "version": "0.0.1",
+  "description": "moment 的常用工具",
+  "keywords": [
+    "moment"
+  ],
+  "author": "thomas-ballo <liurongliang@balloai.com>",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.common.js",
+  "unpkg": "lib/index.js",
+  "jsdelivr": "lib/index.js",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/threfo/bello_frontend.git"
+  },
+  "scripts": {
+    "build": "rimraf lib/* && rollup -c",
+    "watch": "rimraf lib/* && rollup -c -w",
+    "prepublishOnly": "yarn run build"
+  },
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
+  },
+  "peerDependencies": {
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "@types/moment": "^2.13.0"
+  }
+}
