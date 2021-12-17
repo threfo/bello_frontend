@@ -1,7 +1,10 @@
 {
   "name": "@belloai/bello-mfe",
   "version": "0.0.8",
-  "description": "微前端工具",
+  "description": "微前端相关方法",
+  "keywords": [
+    "微前端"
+  ],
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
   "license": "ISC",
@@ -14,22 +17,23 @@
   },
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
+  "main": "lib/index.common.js",
+  "unpkg": "lib/index.js",
+  "jsdelivr": "lib/index.js",
   "files": [
     "src",
     "lib"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/threfo/bello_frontend.git",
-    "directory": "packages/bello-mfe"
-  },
-  "bugs": {
-    "url": "https://github.com/threfo/bello_frontend/issues"
+    "url": "git+https://github.com/threfo/bello_frontend.git"
   },
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "prepublishOnly": "yarn run build"
   },
-  "gitHead": "f3a80f4c0850a370dfcedde35a530f95ccb57220"
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
+  }
 }
