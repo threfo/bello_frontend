@@ -11,14 +11,11 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "noImplicitAny": false,
-    "baseUrl": "./packages",
-    "types": ["node", "webpack-env", "jest"],
+    "baseUrl": ".",
+    "types": ["node", "webpack-env", "jest", "vue"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "paths": {
-      "@2bitlab/*": ["*/src/index"] //子包映射到对应目录
-    },
-    "declaration": true
-  },
-  "exclude": ["node_modules", "lib"]
+      "@/*": ["src/*"]
+    }
+  }
 }
-// 配置含义 https://juejin.cn/post/6844904093568221191

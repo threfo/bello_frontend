@@ -23,7 +23,8 @@ module.exports = {
     '@typescript-eslint/no-empty-function': ['warn'],
     '@typescript-eslint/no-this-alias': ['warn'],
     '@typescript-eslint/no-unused-vars': ['error'],
-    '@typescript-eslint/no-explicit-any': ['off']
+    '@typescript-eslint/no-explicit-any': ['off'],
+    '@typescript-eslint/explicit-module-boundary-types': ['off']
   },
   overrides: [
     {
