@@ -23,14 +23,5 @@ module.exports = {
 }
 
 function getSidebar() {
-  return [
-    {
-      title: '会员接口',
-      children: ['member/query']
-    },
-    {
-      title: '优惠券接口',
-      children: ['coupon/query']
-    }
-  ]
+  return []
 }
