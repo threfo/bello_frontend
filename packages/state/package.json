@@ -1,0 +1,45 @@
+{
+  "name": "@belloai/state",
+  "version": "0.0.1",
+  "description": "常用的state应用的构建方法",
+  "keywords": [
+    "state"
+  ],
+  "author": "thomas-ballo <liurongliang@balloai.com>",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.common.js",
+  "unpkg": "lib/index.js",
+  "jsdelivr": "lib/index.js",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/threfo/bello_frontend.git"
+  },
+  "scripts": {
+    "build": "rimraf lib/* && rollup -c",
+    "watch": "rimraf lib/* && rollup -c -w",
+    "prepublishOnly": "yarn run build"
+  },
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.176"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@belloai/bello-vue-auth",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "vue 鉴权插件",
   "author": "李广远 <liguangyuan@belloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -14,26 +14,26 @@
   },
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
+  "main": "lib/index.common.js",
+  "unpkg": "lib/index.js",
+  "jsdelivr": "lib/index.js",
   "files": [
     "src",
-    "lib/*.js",
-    "lib/*.d.ts"
+    "lib"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/threfo/bello_frontend.git",
-    "directory": "packages/bello-vue-auth"
+    "url": "git+https://github.com/threfo/bello_frontend.git"
   },
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
-  },
-  "peerDependencies": {
-    "vue": "^2.6.11"
   },
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "prepublishOnly": "yarn run build"
   },
-  "gitHead": "f3a80f4c0850a370dfcedde35a530f95ccb57220"
+  "devDependencies": {
+    "vue": "^2.6.11"
+  }
 }

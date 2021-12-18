@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
     "baseUrl": "./packages",
+    "types": ["node", "webpack-env", "jest"],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "paths": {
       "@belloai/*": ["*/src/index"] //子包映射到对应目录
     },
-    "target": "ESNEXT",
-    "module": "ESNEXT",
-    "declaration": true,
-    "sourceMap": true,
-    "strict": false,
-    "esModuleInterop": true
-  }
+    "declaration": true
+  },
+  "exclude": ["node_modules", "lib"]
 }
+// 配置含义 https://juejin.cn/post/6844904093568221191

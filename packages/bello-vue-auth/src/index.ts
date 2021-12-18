@@ -1,63 +1,116 @@
-import * as utils from './utils'
+import _Vue from 'vue'
+import {
+  RouteConfig,
+  MenuItem,
+  Route,
+  getRouterMapByRouter,
+  getPermissionMapByRouterMap,
+  getMenuByRouteMap,
+  getPermissionMenuItem,
+  getPermissionMenuList
+} from './utils'
 
-export default class Auth {
-  authFn: () => false
-  routeMap: Map<string, utils._RouteConfig>
-  menu: utils.MenuItem[]
-  permissionRouterMap: Map<string, string[]>
-  constructor({
-    authFn,
-    routes,
-    menu
-  }: {
-    authFn?: any
-    routes: utils._RouteConfig[]
-    menu: utils.MenuItem[]
-  }) {
-    this.authFn =
-      Object.prototype.toString.call(authFn) === '[object Function]'
-        ? authFn
-        : utils.defaultAuthFn
-
-    this.routeMap = utils.getRouterMapByRouter(routes)
-    this.permissionRouterMap = utils.getPermissionMapByRouterMap(this.routeMap)
-    this.menu = utils.getMenuByRouteMap(menu, this.routeMap)
+declare global {
+  interface Window {
+    Vue: any
   }
-  static install(Vue): void {
-    Vue.prototype.$auth = function (permission: string): boolean {
-      const haveAuth = this.authFn(permission, this.$store)
-      if (!haveAuth) {
-        console.warn('没有权限', permission)
-      }
+}
 
-      return haveAuth
+declare module 'vue/types/vue' {
+  interface Vue {
+    $auth: (permission: string, msg?: string) => boolean
+  }
+}
+
+const havePermission = (
+  store: any,
+  permissionName: string,
+  gettersName = `userModule/permission`
+): boolean => {
+  console.log('havePermission store =', store, gettersName, permissionName)
+
+  const getters = store.getters || {}
+  console.log('havePermission getters =', getters)
+
+  const permissionList = getters[gettersName] || []
+
+  console.log('havePermission permissionList =', permissionList)
+
+  const haveAuth = permissionList.includes(permissionName)
+  if (!haveAuth) {
+    console.warn('没有权限', permissionName)
+  }
+
+  return haveAuth
+}
+
+const inBrowser = typeof window !== 'undefined'
+class Auth {
+  router: any
+  routeMap: Map<string, RouteConfig>
+  permissionRouterMap: Map<string, string[]>
+
+  gettersName = 'userModule/permission'
+
+  constructor({ router }: { router: any }) {
+    this.routeMap = new Map()
+    this.permissionRouterMap = new Map()
+
+    this.router = router
+    this.initRouter()
+  }
+
+  static install(Vue: typeof _Vue): void {
+    Vue.prototype.$auth = function (permissionName: string) {
+      console.log('$auth permissionName =', permissionName)
+      return havePermission(this.$store, permissionName)
     }
   }
-  updateRouter(routes: utils._RouteConfig[]): utils._RouteConfig[] {
-    this.routeMap = utils.getRouterMapByRouter(routes)
-    this.permissionRouterMap = utils.getPermissionMapByRouterMap(this.routeMap)
 
-    return routes
+  authFn(permissionName: string): boolean {
+    console.log('authFn', permissionName, this)
+    const { app } = this.router || {}
+    return havePermission(app?.$store, permissionName)
   }
-  updateMenu(menu: utils.MenuItem[]): utils.MenuItem[] {
-    this.menu = utils.getMenuByRouteMap(menu, this.routeMap)
-    return this.menu
+
+  initRouter(routes?: RouteConfig[]): void {
+    let useRoutes = routes
+    if (!useRoutes) {
+      const { options } = this.router
+      const { routes: optionRoutes } = options || {}
+      useRoutes = optionRoutes
+    }
+
+    this.routeMap = getRouterMapByRouter(useRoutes)
+    this.permissionRouterMap = getPermissionMapByRouterMap(this.routeMap)
   }
+
   checkRoutePermission({
     route,
     permissions
   }: {
-    route: utils._Route
+    route: Route
     permissions: string[]
   }): boolean {
-    return utils.getPermissionMenuItem({
+    return getPermissionMenuItem({
       routerPermissions: this.permissionRouterMap.get(
         route?.fullPath || route?.path
       ),
       permissions
     })
   }
-  getMenuByPermissions(permissions: string[]): utils.MenuItem[] {
-    return utils.getPermissionMenuList(this.routeMap, this.menu, permissions)
+
+  getMenuByPermissions(menu: MenuItem[], permissions: string[]): MenuItem[] {
+    return getPermissionMenuList(
+      this.routeMap,
+      getMenuByRouteMap(menu, this.routeMap),
+      permissions
+    )
   }
 }
+
+if (inBrowser && window.Vue) {
+  window.Vue.use(Auth)
+}
+
+export default Auth

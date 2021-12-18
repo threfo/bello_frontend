@@ -1,0 +1,34 @@
+{
+  "name": "@belloai/stylelint",
+  "version": "0.0.1",
+  "description": "Bello 前端 vue 项目代码规范 `stylelint`",
+  "keywords": [
+    "stylelint"
+  ],
+  "author": "thomas-ballo <liurongliang@balloai.com>",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/threfo/bello_frontend.git",
+    "directory": "packages/eslint-config-vue-prettier-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
+  },
+  "dependencies": {
+    "stylelint-config-css-modules": "2.2.x",
+    "stylelint-config-prettier": "8.0.x",
+    "stylelint-config-recess-order": "2.0.x",
+    "stylelint-config-standard": "20.0.x",
+    "stylelint-config-tailwindcss": "^0.0.1",
+    "stylelint-scss": "3.14.x"
+  },
+  "peerDependencies": {
+    "stylelint": "^13.5.0"
+  }
+}

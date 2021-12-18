@@ -1,4 +1,4 @@
-export interface _RouteConfig {
+export interface RouteConfig {
   path: string
   name?: string
   meta?: RouteMeta
@@ -9,11 +9,11 @@ export interface RouteMeta {
   name?: string
   authType?: string | string[]
 }
-export interface _Route {
+export interface Route {
   path: string
   [key: string]: any
 }
-export type RouteItem = _RouteConfig | _Route
+export type RouteItem = RouteConfig | Route
 
 export interface MenuItem {
   icon?: string
@@ -23,7 +23,7 @@ export interface MenuItem {
 }
 
 export const getRouterFullPath = (
-  route: _RouteConfig,
+  route: RouteConfig,
   parentPath: string
 ): string => {
   const { path, meta } = route || {}
@@ -31,20 +31,20 @@ export const getRouterFullPath = (
   return activePath || [parentPath, path].filter(i => i).join('/')
 }
 
-export const getRouteName = (route: _RouteConfig): string => {
+export const getRouteName = (route: RouteConfig): string => {
   const { name, meta } = route || {}
   if (!meta) {
     return name || ''
   }
-  return meta?.name || name
+  return meta?.name || name || ''
 }
 
 export const getRouterMapByRouter = (
-  routes: _RouteConfig[] = []
-): Map<string, _RouteConfig> => {
+  routes: RouteConfig[] = []
+): Map<string, RouteConfig> => {
   const routerMap = new Map()
 
-  const deepSetMap = (children: _RouteConfig[], parentPath: string) => {
+  const deepSetMap = (children: RouteConfig[], parentPath: string) => {
     children.forEach(route => {
       const path = getRouterFullPath(route, parentPath)
 
@@ -84,7 +84,7 @@ export const getPermissionMapByPermission = (
 
 export const getMenuByRouteMap = (
   menuList: Array<MenuItem>,
-  routeMap: Map<string, _RouteConfig>
+  routeMap: Map<string, RouteConfig>
 ): Array<MenuItem> => {
   if (!menuList?.length) {
     return menuList
@@ -113,7 +113,7 @@ export const getMenuByRouteMap = (
 }
 
 export const getPermissionMapByRouterMap = (
-  routeMap: Map<string, _RouteConfig>
+  routeMap: Map<string, RouteConfig>
 ): Map<string, string[]> => {
   const pathPermissionMap = new Map()
 
@@ -128,7 +128,7 @@ export const getPermissionMapByRouterMap = (
 }
 
 export const getPermissionItemByRouter = (
-  route: _RouteConfig,
+  route: RouteConfig,
   path: string
 ): Map<string, string[]> => {
   const { meta } = route
@@ -217,7 +217,7 @@ export const getFilterPermissionMenu = (
 }
 
 export const getPermissionMenuList = (
-  routerMap: Map<string, _RouteConfig>,
+  routerMap: Map<string, RouteConfig>,
   menus: MenuItem[],
   permissions: string[]
 ): MenuItem[] => {
