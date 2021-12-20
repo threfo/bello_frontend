@@ -308,11 +308,9 @@ const checkNotMenuRoute = ({
   const notMenuViews = Object.keys(cloneRoutesMap)
     .map(url => {
       const view = cloneRoutesMap[url]
-      const { key } = view
-      const [authType] = key.split('#')
-      if (authType === 'not_auth') {
-        return
-      }
+      const { key } = view || {}
+      const [authType] = key?.split('#') || ['not_auth']
+
       return getViewItem({
         view,
         componentMap,
@@ -321,7 +319,12 @@ const checkNotMenuRoute = ({
         authType
       })
     })
-    .filter(i => i)
+    .filter(i => {
+      const { key, funcs, eles } = i || {}
+      const [authType] = key?.split('#') || ['not_auth']
+
+      return authType !== 'not_auth' || funcs?.length || eles?.length
+    })
 
   if (notMenuViews.length) {
     menuMap['notMenuViews'] = notMenuViews
