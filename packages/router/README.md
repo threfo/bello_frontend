@@ -1,6 +1,6 @@
 # `router`
 
-> router 想用方法
+> router 常用方法
 
 ## Usage
 
