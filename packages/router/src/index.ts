@@ -20,6 +20,7 @@ class RouterUtil {
   LS: any
   router: any
   auth?: any
+  getOtherLoginPath?: (query?: any) => Promise<string>
 
   debug = false
 
@@ -84,18 +85,27 @@ class RouterUtil {
     window.open(routeUrl.href, target)
   }
 
-  getLoginPath(query?) {
-    const otherLoginPath = this.LS.get('loginPath')
+  async getLoginPath(query?): Promise<string> {
+    let loginPath = this.LS.get('loginPath')
 
-    if (otherLoginPath) {
-      return getUrl(otherLoginPath, query)
+    if (loginPath) {
+      loginPath = getUrl(loginPath, query)
     }
 
-    return this.getHref(this.loginPath, query)
+    if (this.getOtherLoginPath && !loginPath) {
+      loginPath = await this.getOtherLoginPath(query)
+    }
+
+    if (!loginPath) {
+      loginPath = this.getHref(this.loginPath, query)
+    }
+    return loginPath
   }
 
   gotoLoginPage(query?): void {
-    location.replace(this.getLoginPath(query))
+    this.getLoginPath(query).then(url => {
+      location.replace(url)
+    })
   }
 
   getToken(): string {
