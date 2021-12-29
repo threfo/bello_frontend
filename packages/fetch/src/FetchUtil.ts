@@ -52,6 +52,7 @@ class FetchUtil {
       needThrowResError,
       getAuthorization,
       getCancelSource,
+      getDefHeaders,
       apiPre
     } = props || {}
     this.debug = debug
@@ -60,6 +61,7 @@ class FetchUtil {
     this.msgPost = msgPost
     this.getAuthorization = getAuthorization
     this.getCancelSource = getCancelSource
+
     const { LS } = errorPolicyProps
     this.LS = LS
 
@@ -72,6 +74,10 @@ class FetchUtil {
     if (needThrowResError) {
       this.needThrowResError = needThrowResError
     }
+    if (getDefHeaders) {
+      this.getDefHeaders = getDefHeaders
+    }
+
     if (hostnameMap) {
       this.hostnameMap = hostnameMap
     }
@@ -100,6 +106,17 @@ class FetchUtil {
     return authorizationHeaders
   }
 
+  private getDefHeaders() {
+    const { _apiHeaders } = (window || {}) as any
+
+    return {
+      'Cache-Control': 'no-cache',
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...(_apiHeaders || {})
+    }
+  }
+
   private getRequestConfig(props: FetchProps) {
     const {
       url,
@@ -119,9 +136,7 @@ class FetchUtil {
         baseUrl: this.getBaseUrl()
       }),
       headers: {
-        'Cache-Control': 'no-cache',
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...(this.getDefHeaders() || {}),
         ...(this.getAuthorizationHeaders() || {}),
         ...(headers || {})
       },

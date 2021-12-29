@@ -74,6 +74,7 @@ export interface FetchUtilProps {
   msgPost: (msg: string) => void
   getAuthorization: () => string
   getCancelSource: () => CancelSource
+  getDefHeaders?: () => any
   needThrowResError?: (resData: Response) => boolean
   isExpire: () => boolean
 }
