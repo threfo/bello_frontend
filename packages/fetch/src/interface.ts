@@ -69,7 +69,7 @@ export interface FetchUtilProps {
   errorPolicyProps: any
   LS: any
   msgPost: (msg: string) => void
-  getAuthorization: (props?: FetchProps) => string
+  getAuthorization: (props?: FetchProps) => string | any
   getCancelSource: () => CancelSource
   getDefHeaders?: (props?: FetchProps) => any
   getBaseUrl?: (props?: FetchProps) => string
