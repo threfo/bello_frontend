@@ -40,3 +40,25 @@ export const fixUrl = (url: string, query?: any): string => {
   }
   return url
 }
+
+export const getSynchronizeApisProps = props => {
+  const { props: fetchProps, res, needSynchronizeApis } = props || {}
+  const { config } = res || {}
+  const { headers: resHeaders } = config || {}
+  return (needSynchronizeApis || [])
+    .map(item => {
+      const { url, method = 'GET', headers = {} } = item
+      if (url) {
+        return {
+          ...fetchProps,
+          url,
+          method,
+          headers: {
+            ...resHeaders,
+            ...headers
+          }
+        }
+      }
+    })
+    .filter(i => i)
+}

@@ -12,7 +12,7 @@ import {
   ResponseType
 } from './interface'
 
-import { needData, getUrl } from './utils'
+import { needData, getUrl, getSynchronizeApisProps } from './utils'
 
 import {
   getErrorKey,
@@ -25,9 +25,13 @@ class FetchUtil {
   instance: any = null // 请求的实例，如 axios.create()
 
   private msgPost?: (msg: string) => void
-  private getAuthorization?: () => string
+  private getAuthorization?: (props?: FetchProps) => string | any
   private getCancelSource?: () => CancelSource
   private isExpire?: () => boolean
+  private getSynchronizeApis?: (
+    props: FetchProps,
+    res: any
+  ) => Promise<FetchProps[]>
 
   private LS?: any
   private hostnameMap: any = {}
@@ -39,6 +43,7 @@ class FetchUtil {
   private cancelMap: CancelMap = {}
   private apiPre = '/api/'
   private debug = false
+  private lsApiKey = 'apiServer'
 
   constructor(props: FetchUtilProps) {
     const {
@@ -53,7 +58,11 @@ class FetchUtil {
       getAuthorization,
       getCancelSource,
       getDefHeaders,
-      apiPre
+      getBaseUrl,
+      getSynchronizeApis,
+      apiPre,
+      LS,
+      lsApiKey = 'apiServer'
     } = props || {}
     this.debug = debug
     this.instance = instance
@@ -62,8 +71,9 @@ class FetchUtil {
     this.getAuthorization = getAuthorization
     this.getCancelSource = getCancelSource
 
-    const { LS } = errorPolicyProps
     this.LS = LS
+
+    this.lsApiKey = lsApiKey
 
     if (errorKeyPolicy) {
       this.initErrorKeyPolicy(errorKeyPolicy)
@@ -77,6 +87,12 @@ class FetchUtil {
     if (getDefHeaders) {
       this.getDefHeaders = getDefHeaders
     }
+    if (getBaseUrl) {
+      this.getBaseUrl = getBaseUrl
+    }
+    if (getSynchronizeApis) {
+      this.getSynchronizeApis = getSynchronizeApis
+    }
 
     if (hostnameMap) {
       this.hostnameMap = hostnameMap
@@ -87,13 +103,15 @@ class FetchUtil {
   }
 
   private log(...a) {
-    console.log(...a)
+    if (this.debug) {
+      console.log(...a, this)
+    }
   }
 
-  private getAuthorizationHeaders() {
+  private getAuthorizationHeaders(props?: FetchProps) {
     let authorizationHeaders: any = {}
     if (this.getAuthorization) {
-      const authorization = this.getAuthorization()
+      const authorization = this.getAuthorization(props)
       if (authorization) {
         authorizationHeaders = authorization
         if (isString(authorization)) {
@@ -106,7 +124,8 @@ class FetchUtil {
     return authorizationHeaders
   }
 
-  private getDefHeaders() {
+  private getDefHeaders(props?: FetchProps) {
+    this.log('getDefHeaders', props)
     const { _apiHeaders } = (window || {}) as any
 
     return {
@@ -133,11 +152,11 @@ class FetchUtil {
         url,
         method,
         data,
-        baseUrl: this.getBaseUrl()
+        baseUrl: this.getBaseUrl(props)
       }),
       headers: {
-        ...(this.getDefHeaders() || {}),
-        ...(this.getAuthorizationHeaders() || {}),
+        ...(this.getDefHeaders(props) || {}),
+        ...(this.getAuthorizationHeaders(props) || {}),
         ...(headers || {})
       },
       timeout: 300000,
@@ -156,8 +175,14 @@ class FetchUtil {
     return requestConfig
   }
 
-  private getBaseUrl() {
-    let host = this.LS.get('apiServer')
+  private getBaseUrl(props?: FetchProps) {
+    this.log('getBaseUrl', props)
+    let host
+
+    if (this.lsApiKey) {
+      host = this.LS.get(this.lsApiKey)
+    }
+
     if (!host) {
       host = this.hostnameMap[location.hostname]
     }
@@ -216,6 +241,27 @@ class FetchUtil {
 
   private getErrorKey(error): string | undefined {
     return getErrorKey(error, this.errorKeyPolicy)
+  }
+
+  private async fetchSynchronizeApis(props: FetchProps, res: any) {
+    this.log('fetchSynchronizeApis', props)
+    if (this.getSynchronizeApis) {
+      const needSynchronizeApis = await this.getSynchronizeApis(props, res)
+      const apiProps = getSynchronizeApisProps({
+        needSynchronizeApis,
+        res,
+        props
+      })
+      const { length } = apiProps || []
+
+      if (length) {
+        try {
+          await Promise.all(apiProps.map(item => this.coreFetch(item)))
+        } catch (error) {
+          console.error('fetchSynchronizeApis', error)
+        }
+      }
+    }
   }
 
   coreFetch(props: FetchProps) {
@@ -290,6 +336,8 @@ class FetchUtil {
         throw res.data
       }
 
+      this.fetchSynchronizeApis(props, res)
+
       if (isReturnResponse) {
         return res
       }
@@ -301,11 +349,12 @@ class FetchUtil {
         const errorPolicyFunc = this.errorPolicy[errorKey]
         if (isFunction(errorPolicyFunc)) {
           errorPolicyFunc({
-            ...this.errorPolicyProps,
+            LS: this.LS,
             error,
             location: window.location,
             hackProps,
-            msgPost: this.msgPost
+            msgPost: this.msgPost,
+            ...(this.errorPolicyProps || {})
           })
 
           return

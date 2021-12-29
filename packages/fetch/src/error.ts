@@ -154,7 +154,10 @@ export const getErrorPolicy = () => {
       error,
       msgPost
     }) => {
-      experienceAccountExpiredFunc()
+      if (experienceAccountExpiredFunc) {
+        experienceAccountExpiredFunc()
+      }
+
       msgPost(getBusinessErrorMsg(error))
 
       throw error
