@@ -64,16 +64,7 @@ instance.interceptors.response.use(
 
 export const isNoUseAuthorization = (url, token) => {
   const [orgUrl] = url.split('?')
-  return (
-    !token ||
-    [
-      'config/private_deploy',
-      'user/login',
-      'user/signup',
-      'user/signup_sms',
-      'limit_code/is_expire'
-    ].includes(orgUrl)
-  )
+  return !token || ['user/login'].includes(orgUrl)
 }
 
 export const getAuthorization = props => {
@@ -90,11 +81,7 @@ export const getAuthorization = props => {
 export const hostnameMap = {
   localhost: '',
   '127.0.0.1': '',
-  'stg.belloai.com': 'https://stg.belloai.com',
-  'osr-f.bellodash.com': 'https://test.belloai.com',
   'www.belloai.com': 'https://www.belloai.com',
-  'stg-oem.belloai.com': 'https://stg-oem.belloai.com',
-  'oem.belloai.com': 'https://oem.belloai.com',
   'belloai.com': 'https://www.belloai.com'
 }
 
