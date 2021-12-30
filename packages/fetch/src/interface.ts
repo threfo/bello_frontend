@@ -78,6 +78,10 @@ export interface FetchUtilProps {
   isExpire: () => boolean
 }
 
+export interface FetchPropsUrlMap {
+  [url: string]: FetchProps
+}
+
 export interface Response {
   code?: number | string
   data?: any

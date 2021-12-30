@@ -1,9 +1,17 @@
-import { FetchUtilProps } from './interface'
+import { FetchUtilProps, FetchPropsUrlMap, FetchProps } from './interface'
 import FetchUtil from './FetchUtil'
 
 import Restful from './Restful'
 
-export const initApiFactory = (props: FetchUtilProps) => {
+export * as resUtil from './error'
+
+export * from './interface'
+interface ApiFactory {
+  fetchUtil: FetchUtil
+  getRestfulApi: (entry: string) => Restful
+}
+
+export const initApiFactory = (props: FetchUtilProps): ApiFactory => {
   return {
     fetchUtil: new FetchUtil(props),
     getRestfulApi(entry: string) {
@@ -16,7 +24,10 @@ export const initApiFactory = (props: FetchUtilProps) => {
 }
 
 // 拦截替换api
-export const checkInterceptConfig = (config, interceptApis) => {
+export const checkInterceptConfig = (
+  config: FetchProps,
+  interceptApis: FetchPropsUrlMap
+): FetchProps => {
   const {
     url: configUrl,
     headers: configHeaders,

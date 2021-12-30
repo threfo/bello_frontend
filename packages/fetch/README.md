@@ -132,3 +132,44 @@ export const apiFactory: any = initApiFactory({
   isExpire // 判断用户过期的方法
 })
 ```
+
+## API
+
+导出的方法已 [src/index.ts](src/index.ts) 为准
+
+目前有
+
+### resUtil
+
+`resUtil` 对象内是 [src/error.ts](src/error.ts) 内的方法
+
+具体方法的应用请看 [error.test.ts](__tests__/error.test.ts)
+
+### initApiFactory
+
+`initApiFactory` 为核心的请求实例构建函数，根据上面示例参考调用
+
+`initApiFactory.fetchUtil` 为核心的请求实例
+
+`initApiFactory.getRestfulApi(entry: string)` 是获取符合 RestfulApi 规范的实例，可以便捷的调用 `add`,`del`,`update`,`list`,`key` 的 Restful 规范请求，详情请看 [src/Restful.ts](src/Restful.ts)
+
+### checkInterceptConfig
+
+`checkInterceptConfig` 是用于做配置形式替换某个请求的行为
+
+以上面的 `axios` 示例举例
+
+```js
+// Add a request interceptor
+instance.interceptors.request.use(
+  function (config) {
+    // 看是否有需要替换的 api
+    const interceptApis = get(Store.getters.serverConfig, 'intercept_apis', {})
+    return checkInterceptConfig(config, interceptApis)
+  },
+  function (error) {
+    console.error('request error: ', error)
+    return Promise.reject(error)
+  }
+)
+```
