@@ -1,6 +1,6 @@
 {
   "name": "@belloai/fetch",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "api 请求工具",
   "keywords": [
     "Local",

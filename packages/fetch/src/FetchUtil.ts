@@ -175,16 +175,24 @@ class FetchUtil {
     return requestConfig
   }
 
-  private getBaseUrl(props?: FetchProps) {
-    this.log('getBaseUrl', props)
+  getOtherBaseUrl(): string {
     let host
-
     if (this.lsApiKey) {
       host = this.LS.get(this.lsApiKey)
     }
+    return host || ''
+  }
+
+  getHostNameMapUrl(): string {
+    return this.hostnameMap[location.hostname] || location.origin
+  }
+
+  getBaseUrl(props?: FetchProps): string {
+    this.log('getBaseUrl', props)
+    let host = this.getOtherBaseUrl()
 
     if (!host) {
-      host = this.hostnameMap[location.hostname]
+      host = this.getHostNameMapUrl()
     }
     return `${host || location.origin}${this.apiPre}`
   }
