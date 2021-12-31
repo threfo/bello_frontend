@@ -122,7 +122,8 @@ export const getErrorPolicy = () => {
       throw ''
     },
     tooManyReqError: ({ error, msgPost }) => {
-      msgPost('访问过于频繁！')
+      error.errorMsg = '访问过于频繁！'
+      msgPost(error.errorMsg)
       throw error
     },
     tokenTimeoutError: () => {
@@ -131,22 +132,23 @@ export const getErrorPolicy = () => {
     },
     notAuthError: ({ LS, error, msgPost }) => {
       const token = LS.get('token')
+      let errorMsg = ''
       if (token) {
-        msgPost('您暂无权限进行该操作！')
+        errorMsg = '您暂无权限进行该操作！'
       }
+
+      error.errorMsg = errorMsg
+      msgPost(error.errorMsg)
       throw error
     },
-    businessError: ({ error, hackProps, msgPost }) => {
-      const { notMsgPost } = hackProps || {}
-      if (!notMsgPost) {
-        msgPost(getBusinessErrorMsg(error))
-      }
-      error.errorType = 'businessError'
+    businessError: ({ error, msgPost }) => {
+      error.errorMsg = getBusinessErrorMsg(error)
+      msgPost(error.errorMsg)
       throw error
     },
     apiError: ({ error, msgPost }) => {
-      msgPost(getApiErrorMsg(error))
-      error.errorType = 'apiError'
+      error.errorMsg = getApiErrorMsg(error)
+      msgPost(error.errorMsg)
       throw error
     },
     experienceAccountExpired: ({
@@ -158,17 +160,13 @@ export const getErrorPolicy = () => {
         experienceAccountExpiredFunc()
       }
 
-      msgPost(getBusinessErrorMsg(error))
-
+      error.errorMsg = getBusinessErrorMsg(error)
+      msgPost(error.errorMsg)
       throw error
     },
-    fetchError: ({ error, hackProps, msgPost }) => {
-      const { notMsgPost } = hackProps || {}
-      if (!notMsgPost) {
-        msgPost(getFetchErrorMsg(error))
-      }
-      error.errorType = 'fetchError'
-
+    fetchError: ({ error, msgPost }) => {
+      error.errorMsg = getFetchErrorMsg(error)
+      msgPost(error.errorMsg)
       throw error
     }
   }

@@ -353,24 +353,33 @@ class FetchUtil {
       }
       return res.data
     } catch (error: any) {
-      console.log(error)
+      this.log('fetchByObj error', error)
+
+      const msgPost = msg => {
+        const { notMsgPost } = (hackProps || {}) as any
+        if (!notMsgPost) {
+          this.msgPost && this.msgPost(msg)
+        }
+      }
+
       const errorKey = this.getErrorKey(error)
       if (errorKey) {
         const errorPolicyFunc = this.errorPolicy[errorKey]
         if (isFunction(errorPolicyFunc)) {
+          error.errorType = errorKey
           errorPolicyFunc({
             LS: this.LS,
             error,
             location: window.location,
             hackProps,
-            msgPost: this.msgPost,
+            msgPost,
             ...(this.errorPolicyProps || {})
           })
 
           return
         }
       }
-      this.msgPost && this.msgPost('系统异常，请联系管理员')
+      msgPost('系统异常，请联系管理员')
       console.error('未知错误', error)
       throw error
     }
