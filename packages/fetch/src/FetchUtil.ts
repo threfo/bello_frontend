@@ -322,6 +322,8 @@ class FetchUtil {
 
     if (Array.isArray(data)) {
       postData = data
+    } else if (data instanceof FormData) {
+      postData = data
     } else {
       const { hackProps: dataHackProps, ...postDataObj } = data || {}
       hackProps = dataHackProps
@@ -383,7 +385,7 @@ class FetchUtil {
     responseType?: ResponseType,
     isReturnResponse?: boolean
   ): Promise<Response | undefined> {
-    return this.fetchByObj({
+    return await this.fetchByObj({
       url,
       data,
       method,

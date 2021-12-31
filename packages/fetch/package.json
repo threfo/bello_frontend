@@ -1,10 +1,9 @@
 {
   "name": "@belloai/fetch",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "api 请求工具",
   "keywords": [
-    "Local",
-    "Storage"
+    "fetch"
   ],
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
