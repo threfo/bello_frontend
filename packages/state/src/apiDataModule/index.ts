@@ -121,8 +121,6 @@ export const initApiDataModule = ({
     })
   }
 
-  let timer
-
   return {
     namespaced: true,
     state: initState(),
@@ -183,9 +181,8 @@ export const initApiDataModule = ({
             })
           } else {
             typeArrMapControl.pushInQueue({ entryKey, dataId })
-            clearTimeout(timer)
 
-            timer = setTimeout(() => {
+            typeArrMapControl.setTimeout(entryKey, () => {
               const ids = typeArrMapControl.getArr(entryKey)
               if (ids.length) {
                 dispatch('getListByParams', {
@@ -193,7 +190,7 @@ export const initApiDataModule = ({
                   params: getIdsListProps(ids)
                 })
               }
-            }, 300)
+            })
           }
         }
         return value

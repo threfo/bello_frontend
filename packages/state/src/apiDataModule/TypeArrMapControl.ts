@@ -3,8 +3,10 @@ interface IdsQueueMap {
 }
 export default class TypeArrMapControl {
   idsQueueMap: IdsQueueMap
+  timerMap: any
   constructor() {
     this.idsQueueMap = {}
+    this.timerMap = {}
   }
 
   pushInQueue({
@@ -35,5 +37,11 @@ export default class TypeArrMapControl {
 
   setArr(entryKey: string, arr: string[]): void {
     this.idsQueueMap[entryKey] = arr
+  }
+
+  setTimeout(entryKey: string, func, time = 300): void {
+    clearTimeout(this.timerMap[entryKey])
+
+    this.timerMap[entryKey] = setTimeout(func, time)
   }
 }
