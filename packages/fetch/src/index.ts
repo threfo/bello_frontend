@@ -31,34 +31,35 @@ export const checkInterceptConfig = (
   const {
     url: configUrl,
     headers: configHeaders,
-    method: configMethod
+    method: configMethod = 'get'
   } = config || {}
 
   const uri = new URL(configUrl)
   const { pathname, search } = uri
 
   // 拦截配置
-  const interceptPathList = Object.keys(interceptApis || {})
+  const key1 = `${configMethod.toLowerCase() || ''} ${pathname}`
+  const key2 = `${configMethod.toUpperCase() || ''} ${pathname}`
+
+  const {
+    headers = configHeaders,
+    url = configUrl,
+    method = configMethod
+  } = interceptApis[key1] ||
+  interceptApis[key2] ||
+  interceptApis[pathname] ||
+  {}
 
   // 如果pathname在拦截API配置中存在，那么需要修改替换成拦截配置中的参数。
-  if (interceptPathList.includes(pathname)) {
-    const {
-      headers = configHeaders,
-      url = configUrl,
-      method = configMethod
-    } = interceptApis[pathname] || {}
-
-    return {
-      ...config,
-      url: `${url || ''}${search || ''}`,
-      method,
-      headers: {
-        ...(configHeaders || {}),
-        ...(headers || {})
-      }
+  return {
+    ...config,
+    url: `${url || ''}${search || ''}`,
+    method,
+    headers: {
+      ...(configHeaders || {}),
+      ...(headers || {})
     }
   }
-  return config
 }
 
 export default initApiFactory
