@@ -1,6 +1,16 @@
 import { checkInterceptConfig } from '../src/index'
 
 describe('packages/fetch/src/index.ts', () => {
+  beforeEach(() => {
+    ;(window as any)._apiHeaders = {
+      addHead: 'addHead'
+    }
+  })
+
+  afterEach(() => {
+    delete (window as any)._apiHeaders
+  })
+
   it('checkInterceptConfig', () => {
     expect(
       JSON.stringify(
@@ -107,6 +117,7 @@ describe('packages/fetch/src/index.ts', () => {
       })
     )
 
+    // 测试host不一致时把系统额外header清空
     expect(
       JSON.stringify(
         checkInterceptConfig(
@@ -116,11 +127,12 @@ describe('packages/fetch/src/index.ts', () => {
             data: {},
             headers: {
               test: '2',
-              test2: '3'
+              test2: '3',
+              addHead: 'addHead'
             }
           },
           {
-            'POST /url': {
+            'GET /url': {
               url: 'http://bbb.com/url1',
               method: 'post',
               headers: {
@@ -132,11 +144,11 @@ describe('packages/fetch/src/index.ts', () => {
       )
     ).toBe(
       JSON.stringify({
-        url: 'http://aaa.com/url',
-        method: 'get',
+        url: 'http://bbb.com/url1',
+        method: 'post',
         data: {},
         headers: {
-          test: '2',
+          test: '1',
           test2: '3'
         }
       })

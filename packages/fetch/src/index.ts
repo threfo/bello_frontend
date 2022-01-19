@@ -35,7 +35,7 @@ export const checkInterceptConfig = (
   } = config || {}
 
   const uri = new URL(configUrl)
-  const { pathname, search } = uri
+  const { pathname, search, host } = uri
 
   // 拦截配置
   const key1 = `${configMethod.toLowerCase() || ''} ${pathname}`
@@ -51,7 +51,8 @@ export const checkInterceptConfig = (
   {}
 
   // 如果pathname在拦截API配置中存在，那么需要修改替换成拦截配置中的参数。
-  return {
+
+  const afterConfig = {
     ...config,
     url: `${url || ''}${search || ''}`,
     method,
@@ -60,6 +61,19 @@ export const checkInterceptConfig = (
       ...(headers || {})
     }
   }
+
+  const { url: afterUrl, headers: afterHeaders } = afterConfig
+  const { host: afterHost } = new URL(afterUrl)
+
+  const { _apiHeaders } = (window || {}) as any
+  if (host !== afterHost && _apiHeaders) {
+    Object.keys(_apiHeaders).forEach(key => {
+      delete afterHeaders[key]
+    })
+    afterConfig.headers = afterHeaders
+  }
+
+  return afterConfig
 }
 
 export default initApiFactory
