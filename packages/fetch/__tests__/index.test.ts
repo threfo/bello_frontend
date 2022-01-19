@@ -51,7 +51,7 @@ describe('packages/fetch/src/index.ts', () => {
       JSON.stringify(
         checkInterceptConfig(
           {
-            url: 'http://aaa.com/url',
+            url: 'http://aaa.com/url?a=1',
             method: 'get',
             data: {},
             headers: {
@@ -61,7 +61,7 @@ describe('packages/fetch/src/index.ts', () => {
           },
           {
             'get /url': {
-              url: 'http://bbb.com/url1',
+              url: 'http://bbb.com/url1?b=2',
               method: 'post',
               headers: {
                 test: '1'
@@ -72,7 +72,7 @@ describe('packages/fetch/src/index.ts', () => {
       )
     ).toBe(
       JSON.stringify({
-        url: 'http://bbb.com/url1',
+        url: 'http://bbb.com/url1?a=1&b=2',
         method: 'post',
         data: {},
         headers: {
@@ -112,6 +112,41 @@ describe('packages/fetch/src/index.ts', () => {
         data: {},
         headers: {
           test: '1',
+          test2: '3'
+        }
+      })
+    )
+
+    expect(
+      JSON.stringify(
+        checkInterceptConfig(
+          {
+            url: 'http://aaa.com/url?a=b',
+            method: 'get',
+            data: {},
+            headers: {
+              test: '2',
+              test2: '3'
+            }
+          },
+          {
+            'post /url': {
+              url: 'http://bbb.com/url1',
+              method: 'post',
+              headers: {
+                test: '1'
+              }
+            }
+          }
+        )
+      )
+    ).toBe(
+      JSON.stringify({
+        url: 'http://aaa.com/url?a=b',
+        method: 'get',
+        data: {},
+        headers: {
+          test: '2',
           test2: '3'
         }
       })
