@@ -44,6 +44,7 @@ class FetchUtil {
   private apiPre = '/api/'
   private debug = false
   private lsApiKey = 'apiServer'
+  private windowApiHeadersKey = '_apiHeaders'
 
   constructor(props: FetchUtilProps) {
     const {
@@ -62,7 +63,8 @@ class FetchUtil {
       getSynchronizeApis,
       apiPre,
       LS,
-      lsApiKey = 'apiServer'
+      lsApiKey = 'apiServer',
+      windowApiHeadersKey = '_apiHeaders'
     } = props || {}
     this.debug = debug
     this.instance = instance
@@ -74,6 +76,7 @@ class FetchUtil {
     this.LS = LS
 
     this.lsApiKey = lsApiKey
+    this.windowApiHeadersKey = windowApiHeadersKey
 
     if (errorKeyPolicy) {
       this.initErrorKeyPolicy(errorKeyPolicy)
@@ -126,14 +129,43 @@ class FetchUtil {
 
   private getDefHeaders(props?: FetchProps) {
     this.log('getDefHeaders', props)
-    const { _apiHeaders } = (window || {}) as any
 
     return {
       'Cache-Control': 'no-cache',
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...(_apiHeaders || {})
+      ...this.getWindowApiHeaders()
     }
+  }
+
+  getWindowApiHeaders(): any {
+    return (window || {})[this.windowApiHeadersKey] || {}
+  }
+
+  getCleanWindowApiHeadersObj(): any {
+    return Object.keys(this.getWindowApiHeaders()).reduce((obj, key) => {
+      obj[key] = undefined
+      return obj
+    }, {})
+  }
+
+  private getHeaders(props?: FetchProps) {
+    const { headers } = props || {}
+
+    const willNeedHeaders = {
+      ...(this.getDefHeaders(props) || {}),
+      ...(this.getAuthorizationHeaders(props) || {}),
+      ...(headers || {})
+    }
+
+    // 可以通过 设置 空值的方式来清除一些内置的headers
+    return Object.keys(willNeedHeaders).reduce((obj, key) => {
+      const val = willNeedHeaders[key]
+      if (val) {
+        obj[key] = val
+      }
+      return obj
+    }, {})
   }
 
   private getRequestConfig(props: FetchProps) {
@@ -142,8 +174,7 @@ class FetchUtil {
       method = 'GET',
       data,
       responseType = 'json',
-      cancelKey,
-      headers
+      cancelKey
     } = props
 
     const requestConfig: any = {
@@ -154,11 +185,7 @@ class FetchUtil {
         data,
         baseUrl: this.getBaseUrl(props)
       }),
-      headers: {
-        ...(this.getDefHeaders(props) || {}),
-        ...(this.getAuthorizationHeaders(props) || {}),
-        ...(headers || {})
-      },
+      headers: this.getHeaders(props),
       timeout: 300000,
       responseType
     }

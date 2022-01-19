@@ -66,6 +66,7 @@ export interface FetchUtilProps {
   hostnameMap?: any
   apiPre?: string
   lsApiKey?: string
+  windowApiHeadersKey?: string
   errorPolicyProps: any
   LS: any
   msgPost: (msg: string) => void
