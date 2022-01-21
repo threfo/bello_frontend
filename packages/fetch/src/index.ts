@@ -24,6 +24,18 @@ export const initApiFactory = (props: FetchUtilProps): ApiFactory => {
   }
 }
 
+export const cleanDefApiHeaders = (config: FetchProps, key = '_apiHeaders') => {
+  const { headers } = config
+
+  const afterHeaders = JSON.parse(JSON.stringify(headers))
+
+  const apiHeaders = (window || {})[key] || {}
+  Object.keys(apiHeaders).forEach(key => {
+    delete afterHeaders[key]
+  })
+  return afterHeaders
+}
+
 // 拦截替换api
 export const checkInterceptConfig = (
   config: FetchProps,
@@ -81,15 +93,10 @@ export const checkInterceptConfig = (
       }
     }
 
-    const { headers: afterHeaders } = afterConfig
     const { host: afterHost } = new URL(afterUrl)
 
-    const { _apiHeaders } = (window || {}) as any
-    if (host !== afterHost && _apiHeaders) {
-      Object.keys(_apiHeaders).forEach(key => {
-        delete afterHeaders[key]
-      })
-      afterConfig.headers = afterHeaders
+    if (host !== afterHost) {
+      afterConfig.headers = cleanDefApiHeaders(afterConfig)
     }
 
     return afterConfig
