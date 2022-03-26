@@ -56,6 +56,7 @@ export interface FetchProps {
   cancelKey?: string
   responseType?: ResponseType
   isReturnResponse?: boolean
+  otherConfig?: any
 }
 
 export interface FetchUtilProps {

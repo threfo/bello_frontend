@@ -1,8 +1,9 @@
-import { FetchUtilProps, FetchPropsUrlMap, FetchProps } from './interface'
+import { FetchUtilProps, FetchProps } from './interface'
 import FetchUtil from './FetchUtil'
 
 import Restful from './Restful'
-import { parse, stringify } from 'qs'
+
+export { checkInterceptConfig } from './interceptApis'
 
 export * as resUtil from './error'
 
@@ -34,75 +35,6 @@ export const cleanDefApiHeaders = (config: FetchProps, key = '_apiHeaders') => {
     delete afterHeaders[key]
   })
   return afterHeaders
-}
-
-// 拦截替换api
-export const checkInterceptConfig = (
-  config: FetchProps,
-  interceptApis: FetchPropsUrlMap
-): FetchProps => {
-  const {
-    url: configUrl,
-    headers: configHeaders,
-    method: configMethod = 'get'
-  } = config || {}
-
-  const [orgUrl, queryStr] = configUrl.split('?')
-
-  const uri = new URL(orgUrl)
-  const { pathname, host } = uri
-
-  // 拦截配置
-  const key1 = `${configMethod.toLowerCase() || ''} ${pathname}`
-  const key2 = `${configMethod.toUpperCase() || ''} ${pathname}`
-
-  const interceptApiConfig =
-    interceptApis[key1] || interceptApis[key2] || interceptApis[pathname]
-
-  if (interceptApiConfig) {
-    const {
-      headers = configHeaders,
-      url = configUrl,
-      method = configMethod
-    } = interceptApiConfig
-
-    const [interceptUrl, interceptQueryStr] = url.split('?')
-
-    // 如果pathname在拦截API配置中存在，那么需要修改替换成拦截配置中的参数。
-
-    let afterUrl = interceptUrl
-    if (interceptQueryStr || queryStr) {
-      try {
-        const query = {
-          ...parse(queryStr),
-          ...parse(interceptQueryStr)
-        }
-        afterUrl = `${afterUrl}?${stringify(query)}`
-      } catch (error) {
-        console.error('checkInterceptConfig error:', error)
-      }
-    }
-
-    const afterConfig = {
-      ...config,
-      url: afterUrl,
-      method,
-      headers: {
-        ...(configHeaders || {}),
-        ...(headers || {})
-      }
-    }
-
-    const { host: afterHost } = new URL(afterUrl)
-
-    if (host !== afterHost) {
-      afterConfig.headers = cleanDefApiHeaders(afterConfig)
-    }
-
-    return afterConfig
-  }
-
-  return config
 }
 
 export default initApiFactory
