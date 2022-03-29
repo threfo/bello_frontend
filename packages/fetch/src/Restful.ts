@@ -26,6 +26,11 @@ export default class Restful {
     const url = fixUrl(`${this.entry}/${id}`, query)
     return this.fetchUtil.fetch(url, params, 'PUT')
   }
+  
+  patch(id: string, params: any, query?: any): Promise<Response | undefined> {
+    const url = fixUrl(`${this.entry}/${id}`, query)
+    return this.fetchUtil.fetch(url, params, 'PATCH')
+  }
 
   list(params: any, lockKey?: string): Promise<Response | undefined> {
     return this.fetchUtil.fetch(`${this.entry}`, params, 'GET', {}, lockKey)
