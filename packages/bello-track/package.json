@@ -1,7 +1,7 @@
 {
   "name": "@belloai/bello-track",
-  "version": "0.0.8",
-  "author": "wanghuajin <wanghuajin@belloai.com>",
+  "version": "0.0.9",
+  "author": "ziyu971225 <xin872906473@163.com>",
   "description": "track report",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",

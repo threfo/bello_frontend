@@ -1,6 +1,14 @@
 import '@elastic/apm-rum/dist/bundles/elastic-apm-rum.umd.min.js'
-import { ApmConfig } from '../helper/interface'
-
+interface UserInfo {
+  userId: string
+}
+export interface ApmConfig extends UserInfo {
+  serviceName: string
+  serverUrl: string
+  serviceVersion: string
+  pageLoadTransactionName: string
+  transactionDurationThreshold: number
+}
 declare global {
   interface Window {
     elasticApm: any
@@ -12,16 +20,22 @@ interface SpansParams {
   type?: string // spans的分类
   params?: Record<string, any> // 详细的标记
 }
-export class Apm {
+export const defaultApmConfig: Partial<ApmConfig> = {
+  serviceName: `${location.hostname.replace(/\./g, '_')}_osr`,
+  serverUrl: window.location.origin || 'https://stg.belloai.com',
+  serviceVersion: '',
+  pageLoadTransactionName: 'home',
+  transactionDurationThreshold: Number.MAX_SAFE_INTEGER
+}
+export default class Apm {
   private static apm: Apm
   public elasticApm
-  constructor(payload: ApmConfig) {
-    const { userInfo, initConfig = {} } = payload || {}
-    this.elasticApm = window.elasticApm.init(initConfig)
-    const { user_id } = userInfo || {}
-    if (user_id) {
+  constructor(config: ApmConfig) {
+    const { userId, ...elasticParams } = config
+    this.elasticApm = window.elasticApm.init(elasticParams)
+    if (userId) {
       this.elasticApm.setUserContext({
-        id: user_id
+        id: userId
       })
     }
   }

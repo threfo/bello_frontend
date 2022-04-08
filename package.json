@@ -41,6 +41,7 @@
     "@vue/cli-plugin-unit-jest": "~4.4.0",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "@types/jest": "^27.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.29.0",
     "eslint-plugin-prettier": "^3.4.0",
