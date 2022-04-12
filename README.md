@@ -103,8 +103,10 @@ lerna add lodash --scope=utils #添加 lodash 到 utils
 ### 发布 packages
 
 ```bash
-lerna publish
+yarn lp
 ```
+
+如果是需要更新已发布的包，可以手动修改包内的 `package.json` 的 `version`，然后执行上面的命令就好啦
 
 发布权限 找 晓辉在 npm 的 belloai group 中把你添加进去
 
