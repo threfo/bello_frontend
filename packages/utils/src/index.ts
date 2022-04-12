@@ -1,2 +1,2 @@
-export * as timerHelper from './timerHelper'
-export * as contextHelper from './contextHelper'
+export { timerHelper } from './timerHelper'
+export { contextHelper } from './contextHelper'

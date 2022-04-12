@@ -69,7 +69,7 @@ class InitContext {
   }
 }
 
-export default {
+export const contextHelper = {
   allContext: {},
   initContext(
     props: { needInitWindowLister?: any[]; contextWindow: any },

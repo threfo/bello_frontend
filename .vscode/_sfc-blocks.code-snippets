@@ -22,5 +22,17 @@
     "prefix": "style",
     "body": ["<style lang=\"scss\" scoped>", "${0}", "</style>"],
     "description": "<style lang=\"scss\" scoped>"
+  },
+  "test": {
+    "prefix": "test",
+    "body": [
+      "import { } from '../index'",
+      "describe('${0}', () => {",
+      "\tit('', () => {",
+      "\t\texpect().toBe()",
+      "\t})",
+      "})"
+    ],
+    "description": "Unit test block"
   }
 }
