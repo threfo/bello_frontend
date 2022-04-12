@@ -7,6 +7,9 @@
   "command": {
     "version": {
       "allowBranch": "main"
+    },
+    "publish": {
+      "allowBranch": "main"
     }
   },
   "ignoreChanges": [
