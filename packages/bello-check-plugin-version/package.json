@@ -1,5 +1,5 @@
 {
-  "name": "@belloai/bello-x-client-update-dialog",
+  "name": "@belloai/check-plugin-version",
   "version": "0.0.1",
   "description": "vue 小倍插件更新检查",
   "author": "李广远 <liguangyuan@belloai.com>",
