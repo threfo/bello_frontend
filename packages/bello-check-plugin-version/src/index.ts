@@ -1,4 +1,6 @@
-import http from './http'
+import { CreateDialog, BaseConfig } from './dialog'
+
+export { CreateDialog }
 
 interface PluginInfo {
   xclientId: string
@@ -9,14 +11,6 @@ interface PluginInfo {
 interface Version {
   latest: string // 最新版本
   least: string // 最低版本
-}
-
-interface Config {
-  [key: string]: any
-  assets: {
-    [key: string]: any
-    version: string
-  }
 }
 
 export function judgeVersionUpdated(
@@ -48,53 +42,48 @@ export function judgeVersionUpdated(
   return false
 }
 
-export default class xiaobeiVersion {
+export default class XiaobeiVersion {
   hasPlugin = false
+  dialog: CreateDialog | null
   pluginInfo: PluginInfo | null = null
   version: Version | null = null
-  constructor(config: Config) {
-    this.fetchVersionConfig(config).then(res => {
-      this.version = res
+  constructor(
+    version: Version,
+    config?: BaseConfig,
+    public content?: HTMLElement
+  ) {
+    this.version = version
+    this.content?.querySelector('#_xiaobei_update_dialog_')?.remove()
+
+    this.dialog = new CreateDialog({
+      visible: false,
+      showClose: true,
+      closeOnClickModal: false,
+      id: '_xiaobei_update_dialog_',
+      content,
+      ...(config || {})
     })
+
+    const messageToPlugin = setTimeout(() => {
+      window.postMessage({ type: 'osr_inited' }, '*')
+      if (this.hasPlugin) {
+        clearTimeout(messageToPlugin)
+      }
+    }, 2000)
+
     window.addEventListener('message', this.fetchXClientVersion)
   }
-  async fetchVersionConfig(config: Config): Promise<Version> {
-    const versionApi = config?.assets?.version || ''
-
-    let version: Version = {
-      latest: '',
-      least: ''
-    }
-
-    if (!versionApi) {
-      return version
-    }
-
-    const versionRes = await http(versionApi, 'get')
-    // 兼容配置信息。根据api接口内容来判断
-    if (versionApi.includes('client_parse_v2')) {
-      version = versionRes?.version || {}
-    } else if (versionApi.includes('version')) {
-      version = versionRes
-    } else {
-      version = {
-        latest: versionRes?.config_data?.version || '',
-        least: versionRes?.config_data?.leastVersion || ''
-      }
-    }
-
-    return version
-  }
-  fetchXClientVersion = (event): void => {
+  fetchXClientVersion = (event: MessageEvent): void => {
     const { data } = event || {}
     const { data: pluginData, type } = data || {}
     if (type === 'bl_plugin_inited') {
       this.hasPlugin = true
       this.pluginInfo = pluginData
+      this.checkVersion()
     }
   }
   checkVersion(): string {
-    if (!this.hasPlugin) {
+    if (!this.hasPlugin || !this.dialog) {
       // 未安装插件
       return 'uninstall'
     }
@@ -103,14 +92,18 @@ export default class xiaobeiVersion {
     const { latest = '', least = '' } = this.version || {}
 
     const isLeastVersion = judgeVersionUpdated(version, least)
+
     if (isLeastVersion) {
       // 强制更新
+      this.dialog.setConfig({ visible: true, showClose: false })
       return 'least'
     }
 
     const isLatestVersion = judgeVersionUpdated(version, latest)
+
     if (isLatestVersion) {
       // 软更新
+      this.dialog.setConfig({ visible: true, showClose: true })
       return 'latest'
     }
 
@@ -118,6 +111,7 @@ export default class xiaobeiVersion {
     return 'success'
   }
   destroy(): void {
+    this.version = null
     window.removeEventListener('message', this.fetchXClientVersion)
   }
 }
