@@ -64,14 +64,23 @@ export default class XiaobeiVersion {
       ...(config || {})
     })
 
-    const messageToPlugin = setTimeout(() => {
-      window.postMessage({ type: 'osr_inited' }, '*')
+    const messageToPlugin = setInterval(() => {
       if (this.hasPlugin) {
-        clearTimeout(messageToPlugin)
+        clearInterval(messageToPlugin)
+        return
       }
-    }, 2000)
+      window.postMessage({ type: 'osr_inited' }, '*')
+    }, 200)
 
     window.addEventListener('message', this.fetchXClientVersion)
+
+    setTimeout(() => {
+      if (!this.hasPlugin) {
+        clearInterval(messageToPlugin)
+        this.checkVersion()
+        window.removeEventListener('message', this.fetchXClientVersion)
+      }
+    }, 3000)
   }
   fetchXClientVersion = (event: MessageEvent): void => {
     const { data } = event || {}
@@ -83,7 +92,15 @@ export default class XiaobeiVersion {
     }
   }
   checkVersion(): string {
-    if (!this.hasPlugin || !this.dialog) {
+    if (!this.dialog) {
+      return 'no_dialog'
+    }
+    if (!this.hasPlugin) {
+      this.dialog.setConfig({
+        visible: true,
+        showClose: false,
+        status: 'uninstall'
+      })
       // 未安装插件
       return 'uninstall'
     }

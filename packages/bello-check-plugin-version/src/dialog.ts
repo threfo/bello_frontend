@@ -4,6 +4,7 @@ export interface DialogConfig {
   showClose?: boolean
   closeOnClickModal?: boolean
   content?: HTMLElement
+  status?: 'update' | 'uninstall'
   [key: string]: any
 }
 
@@ -90,16 +91,19 @@ export const setDomAttrs = (dom: HTMLElement, attrs: Attributes): void => {
 
 export class CreateDialog {
   public config: BaseConfig
+  public status = '更新'
   private domMap: DomMap
   constructor(config: DialogConfig) {
-    const { content = document.body } = config || {}
+    const { content = document.body, visible, status } = config || {}
     const domMap = {
       dialog: document.createElement('div'),
       modal: document.createElement('div'),
       content: document.createElement('div'),
       close: document.createElement('span')
     }
+    domMap.dialog.style.display = visible ? 'block' : 'none'
     content?.appendChild(domMap.dialog)
+    this.status = status === 'uninstall' ? '安装' : '更新'
 
     const _config: DialogConfig = {}
     this.domMap = domMap
@@ -224,7 +228,7 @@ export class CreateDialog {
         line-height: 1.375rem;
         font-size: 1rem;
         margin: 4px 0;
-        color: rgba(40,40,60,1);">更新${update_title}</p>
+        color: rgba(40,40,60,1);">${this.status}${update_title}</p>
     `
 
     if (features.length) {
@@ -285,7 +289,7 @@ export class CreateDialog {
         background-color: ${
           theme_color || 'rgba(90,102,255)'
         }; cursor: pointer; text-decoration: none;"
-        href="${download_page}" target="_blank">立即更新</a>
+        href="${download_page}" target="_blank">立即${this.status}</a>
     `
 
     return [Logo, Title, Features, UpdateBtn]
