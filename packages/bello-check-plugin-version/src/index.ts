@@ -55,32 +55,47 @@ export default class XiaobeiVersion {
     this.version = version
     this.content?.querySelector('#_xiaobei_update_dialog_')?.remove()
 
-    this.dialog = new CreateDialog({
+    content = content ?? document.body
+
+    const _config = {
       visible: false,
       showClose: true,
       closeOnClickModal: false,
       id: '_xiaobei_update_dialog_',
+      notice_timing: 'unInstall,update',
       content,
       ...(config || {})
-    })
+    }
 
-    const messageToPlugin = setInterval(() => {
-      if (this.hasPlugin) {
-        clearInterval(messageToPlugin)
-        return
-      }
-      window.postMessage({ type: 'osr_inited' }, '*')
-    }, 200)
+    this.dialog = new CreateDialog(_config)
 
-    window.addEventListener('message', this.fetchXClientVersion)
+    const { notice_timing } = _config || {}
+    let messageToPlugin: NodeJS.Timeout
 
-    setTimeout(() => {
-      if (!this.hasPlugin) {
-        clearInterval(messageToPlugin)
-        this.checkVersion()
-        window.removeEventListener('message', this.fetchXClientVersion)
-      }
-    }, 3000)
+    console.log(notice_timing)
+    // 检查更新
+    if (notice_timing?.includes('update')) {
+      messageToPlugin = setInterval(() => {
+        if (this.hasPlugin) {
+          clearInterval(messageToPlugin)
+          return
+        }
+        window.postMessage({ type: 'osr_inited' }, '*')
+      }, 200)
+
+      window.addEventListener('message', this.fetchXClientVersion)
+    }
+
+    // 未安装插件
+    if (notice_timing?.includes('unInstall')) {
+      setTimeout(() => {
+        if (!this.hasPlugin) {
+          messageToPlugin && clearInterval(messageToPlugin)
+          this.checkVersion()
+          window.removeEventListener('message', this.fetchXClientVersion)
+        }
+      }, 3 * 1000)
+    }
   }
   fetchXClientVersion = (event: MessageEvent): void => {
     const { data } = event || {}
@@ -89,18 +104,22 @@ export default class XiaobeiVersion {
       this.hasPlugin = true
       this.pluginInfo = pluginData
       this.checkVersion()
+
+      return data
     }
   }
-  checkVersion(): string {
+  checkVersion(fn?: (arg0: XiaobeiVersion, arg1: string) => void): string {
     if (!this.dialog) {
       return 'no_dialog'
     }
     if (!this.hasPlugin) {
       this.dialog.setConfig({
         visible: true,
-        showClose: false,
+        showClose: true,
         status: 'uninstall'
       })
+
+      fn && fn(this, 'uninstall')
       // 未安装插件
       return 'uninstall'
     }
@@ -113,6 +132,7 @@ export default class XiaobeiVersion {
     if (isLeastVersion) {
       // 强制更新
       this.dialog.setConfig({ visible: true, showClose: false })
+      fn && fn(this, 'least')
       return 'least'
     }
 
@@ -121,10 +141,12 @@ export default class XiaobeiVersion {
     if (isLatestVersion) {
       // 软更新
       this.dialog.setConfig({ visible: true, showClose: true })
+      fn && fn(this, 'latest')
       return 'latest'
     }
 
     // 安装了最新版
+    fn && fn(this, 'success')
     return 'success'
   }
   destroy(): void {

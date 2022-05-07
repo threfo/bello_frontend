@@ -20,6 +20,7 @@ interface Attributes {
 }
 
 export interface UpdateConfig {
+  notice_timing?: string
   extension?: {
     download_page: string
     [key: string]: string
@@ -61,6 +62,7 @@ export const handleChangeConfig: Attributes = {
   },
   showClose(value: boolean, domMap: DomMap): void {
     const { content, close } = domMap
+
     if (value) {
       content.appendChild(close)
     } else {
@@ -220,8 +222,7 @@ export class CreateDialog {
     } = web || {}
 
     Logo.src = login_logo_uri
-    Logo.width = 100
-    Logo.height = 28
+    Logo.height = 30
 
     Title.innerHTML = `
       <p style="
@@ -230,6 +231,13 @@ export class CreateDialog {
         margin: 4px 0;
         color: rgba(40,40,60,1);">${this.status}${update_title}</p>
     `
+    setDomAttrs(Features, {
+      style: {
+        listStyle: 'none',
+        padding: 0,
+        display: 'flex'
+      }
+    })
 
     if (features.length) {
       const append = document.createElement('p')
@@ -245,12 +253,6 @@ export class CreateDialog {
       append.innerText = '安装后可享用：'
       Title.appendChild(append)
     }
-
-    setDomAttrs(Features, {
-      style: {
-        display: 'flex'
-      }
-    })
 
     Array.from(features || []).forEach(item => {
       const itemDom = document.createElement('li')
