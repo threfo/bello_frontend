@@ -261,9 +261,12 @@ export class CreateDialog {
 
     Array.from(features || []).forEach(item => {
       const itemDom = document.createElement('li')
+      const tryLen = features.length >> 1
+      const width =
+        tryLen > 1 ? 1 / (2 + ((tryLen >> 1) % 2)) : 1 / features.length
       setDomAttrs(itemDom, {
         style: {
-          width: '33.333333%',
+          width: `${width * 100}%`,
           marginBottom: '0.75rem',
           fontSize: '.75rem',
           color: 'rgba(115,115,128,1)'
