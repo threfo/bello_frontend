@@ -73,7 +73,6 @@ export default class XiaobeiVersion {
     const { notice_timing } = _config || {}
     let messageToPlugin: NodeJS.Timeout
 
-    console.log(notice_timing)
     // 检查更新
     if (notice_timing?.includes('update')) {
       messageToPlugin = setInterval(() => {

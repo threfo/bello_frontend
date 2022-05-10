@@ -1,0 +1,39 @@
+{
+  "name": "@belloai/check-plugin-version",
+  "version": "0.0.6",
+  "description": "vue 小倍插件更新检查",
+  "author": "李广远 <liguangyuan@belloai.com>",
+  "homepage": "https://github.com/threfo/bello_frontend#readme",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.common.js",
+  "unpkg": "lib/index.js",
+  "jsdelivr": "lib/index.js",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/threfo/bello_frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
+  },
+  "scripts": {
+    "build": "rimraf lib/* && rollup -c",
+    "watch": "rimraf lib/* && rollup -c -w",
+    "prepublishOnly": "yarn run build"
+  },
+  "devDependencies": {
+    "vue": "^2.6.11"
+  }
+}

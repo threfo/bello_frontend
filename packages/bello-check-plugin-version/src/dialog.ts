@@ -239,7 +239,8 @@ export class CreateDialog {
       style: {
         listStyle: 'none',
         padding: 0,
-        display: 'flex'
+        display: 'flex',
+        flexWrap: 'wrap'
       }
     })
 
@@ -247,10 +248,10 @@ export class CreateDialog {
       const append = document.createElement('p')
       setDomAttrs(append, {
         style: {
-          'line-height': '1.375rem',
-          'font-size': '.875rem',
-          'margin-top': '2.5rem',
-          'margin-bottom': '1rem',
+          lineHeight: '1.375rem',
+          fontSize: '.875rem',
+          marginTop: '2.5rem',
+          marginBottom: '1rem',
           color: 'rgba(72,72,89,1)'
         }
       })
