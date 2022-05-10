@@ -30,6 +30,8 @@ export interface UpdateConfig {
     update_title: string
     features: Array<string>
     theme_color: string
+    button_color: string
+    feature_title: string
     [key: string]: string | Array<string>
   }
 }
@@ -216,9 +218,11 @@ export class CreateDialog {
       extension || {}
     const {
       login_logo_uri = 'https://assets.belloai.com/staging/config/login_logo.png',
-      update_title = '插件，即刻开启AI招聘功能，实现降本增效',
+      update_title = '安装插件，即刻开启AI招聘功能，实现降本增效',
       features = [],
-      theme_color = '#5a66ff'
+      feature_title = '安装后可享用',
+      theme_color = '#5a66ff',
+      button_color = '#5a66ff'
     } = web || {}
 
     Logo.src = login_logo_uri
@@ -229,7 +233,7 @@ export class CreateDialog {
         line-height: 1.375rem;
         font-size: 1rem;
         margin: 4px 0;
-        color: rgba(40,40,60,1);">${this.status}${update_title}</p>
+        color: rgba(40,40,60,1);">${update_title}</p>
     `
     setDomAttrs(Features, {
       style: {
@@ -250,7 +254,7 @@ export class CreateDialog {
           color: 'rgba(72,72,89,1)'
         }
       })
-      append.innerText = '安装后可享用：'
+      append.innerText = feature_title
       Title.appendChild(append)
     }
 
@@ -289,7 +293,7 @@ export class CreateDialog {
         font-weight: 500; font-size: .875rem; border-radius: 0.25rem;
         padding-top: 0.5rem; padding-left: 5rem; padding-right: 5rem; padding-bottom: 0.5rem;
         background-color: ${
-          theme_color || 'rgba(90,102,255)'
+          button_color || 'rgba(90,102,255)'
         }; cursor: pointer; text-decoration: none;"
         href="${download_page}" target="_blank">立即${this.status}</a>
     `

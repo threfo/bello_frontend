@@ -47,6 +47,7 @@ export default class XiaobeiVersion {
   dialog: CreateDialog | null
   pluginInfo: PluginInfo | null = null
   version: Version | null = null
+  status: 'least' | 'latest' | 'uninstall' = 'uninstall'
   constructor(
     version: Version,
     config?: BaseConfig,
@@ -113,6 +114,7 @@ export default class XiaobeiVersion {
       return 'no_dialog'
     }
     if (!this.hasPlugin) {
+      this.status = 'uninstall'
       this.dialog.setConfig({
         visible: true,
         showClose: true,
@@ -131,6 +133,7 @@ export default class XiaobeiVersion {
 
     if (isLeastVersion) {
       // 强制更新
+      this.status = 'least'
       this.dialog.setConfig({ visible: true, showClose: false })
       fn && fn(this, 'least')
       return 'least'
@@ -140,6 +143,7 @@ export default class XiaobeiVersion {
 
     if (isLatestVersion) {
       // 软更新
+      this.status = 'latest'
       this.dialog.setConfig({ visible: true, showClose: true })
       fn && fn(this, 'latest')
       return 'latest'

@@ -21,7 +21,7 @@ new XiaobeiVersion(
     web: {
       login_logo_uri:
         'https://assets.belloai.com/staging/config/login_logo.png', // 显示在弹框内的logo 的 url
-      update_title: '插件，即刻开启AI招聘功能，实现降本增效', // 显示在弹框内的升级标题信息
+      update_title: '安装插件，即刻开启AI招聘功能，实现降本增效', // 显示在弹框内的升级标题信息
       theme_color: 'black', // 弹框主题色
       features: ['吃饭', '睡觉', '打豆豆'] // 弹框内的提示文案
     }
@@ -48,9 +48,11 @@ interface Config {
   notice_timing: string = 'unInstall,update' // unInstall 对应未安装提醒, update 对应升级提醒, 使用逗号分隔如只需要未安装功能，请传递 'unInstall'
   web: {
     login_logo_uri: string = 'https://assets.belloai.com/staging/config/login_logo.png'
-    update_title: string = '插件，即刻开启AI招聘功能，实现降本增效'
+    update_title: string = '安装插件，即刻开启AI招聘功能，实现降本增效'
     theme_color: string = '#5a66ff'
     features: Array<string> = []
+    button_color: string = '#5a66ff'
+    feature_title: string = '安装后可享用'
   }
   extension: {
     download_page: string = 'https://www.belloai.com/download'
@@ -67,11 +69,13 @@ interface PluginInfo {
   token: string
 }
 
+// 'least' -> 强制更新 | 'latest' -> 软更新 | 'uninstall' -> 未安装
 class XiaobeiVersion {
   hasPlugin: Boolean,
   dialog: CreateDialog,
   pluginInfo: PluginInfo | null
   version: Version | null
+  status: 'least' | 'latest' | 'uninstall'
   fetchXClientVersion() {
     // 搭配 window.postMessage 使用，
     // 发送 window.postMessage({ type: 'osr_inited' }, '*')，等待插件返回 插件查询信息 { type: 'bl_plugin_inited', data: PluginInfo }
