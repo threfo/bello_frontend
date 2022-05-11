@@ -35,6 +35,26 @@ new XiaobeiVersion(
 有值信息的为默认值
 
 ```typescript
+export interface DomSetting {
+  dialog?: SettingItem
+  modal?: SettingItem
+  close?: SettingItem
+  content?: {
+    logo?: SettingItem
+    title?: SettingItem
+    features?: SettingItem
+    featuresTitle?: SettingItem
+    featureItem?: SettingItem
+    updateBtn?: SettingItem
+  }
+}
+
+export interface SettingItem {
+  style?: Attributes // style关键字，挂载到style内
+  text?: string // dom的内容部分
+  [key: string]: any // 其他的attr，任意添加
+}
+
 interface Config {
   // UI部分
   width: number = 468
@@ -44,6 +64,7 @@ interface Config {
   content: HTMLElement = document.body
   status: 'update' | 'uninstall' = 'update'
 
+  domSetting: DomSetting // 制定自己的样式
   // 信息部分
   notice_timing: string = 'unInstall,update' // unInstall 对应未安装提醒, update 对应升级提醒, 使用逗号分隔如只需要未安装功能，请传递 'unInstall'
   web: {

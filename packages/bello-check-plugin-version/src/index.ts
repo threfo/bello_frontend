@@ -53,10 +53,7 @@ export default class XiaobeiVersion {
     config?: BaseConfig,
     public content?: HTMLElement
   ) {
-    this.version = version
-    this.content?.querySelector('#_xiaobei_update_dialog_')?.remove()
-
-    content = content ?? document.body
+    this.content = content ?? document.body
 
     const _config = {
       visible: false,
@@ -64,13 +61,16 @@ export default class XiaobeiVersion {
       closeOnClickModal: false,
       id: '_xiaobei_update_dialog_',
       notice_timing: 'unInstall,update',
-      content,
+      content: this.content,
       ...(config || {})
     }
+    const { notice_timing, id } = _config || {}
+
+    this.version = version
+    this.content?.querySelector(`#${id}`)?.remove()
 
     this.dialog = new CreateDialog(_config)
 
-    const { notice_timing } = _config || {}
     let messageToPlugin: NodeJS.Timeout
 
     // 检查更新

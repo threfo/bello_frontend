@@ -341,6 +341,10 @@ export class CreateDialog {
       Title.appendChild(append)
     }
 
+    const len = features?.length || 0
+    const featureItemWidth =
+      len > 3 ? 1 / (2 + (((len + 1) >> 1) % 2)) : 1 / len
+
     Array.from(features || []).forEach(item => {
       const itemDom = createElement(
         'li',
@@ -364,6 +368,7 @@ export class CreateDialog {
           ...featureItemConfig
         },
         {
+          width: `${featureItemWidth * 100}%`,
           marginBottom: '0.75rem',
           fontSize: '.75rem',
           color: 'rgba(115,115,128,1)'
@@ -402,7 +407,9 @@ export class CreateDialog {
       }
     )
 
-    return [Logo, Title, Features, UpdateBtn]
+    UpdateBtnBox.appendChild(UpdateBtn)
+
+    return [Logo, Title, Features, UpdateBtnBox]
   }
   onClose(): void {
     this.config.visible = false
