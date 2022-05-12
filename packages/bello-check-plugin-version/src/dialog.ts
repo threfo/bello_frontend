@@ -4,7 +4,7 @@ export interface DialogConfig {
   showClose?: boolean
   closeOnClickModal?: boolean
   content?: HTMLElement
-  status?: 'update' | 'uninstall'
+  status?: string
   domSetting?: DomSetting
   [key: string]: any
 }
@@ -131,14 +131,13 @@ export const setDomSetting = (
 
 export class CreateDialog {
   public config: BaseConfig
-  public status = '安装'
   public domSetting: DomSetting
   private domMap: DomMap
+  private status = '安装'
   constructor(config: DialogConfig) {
     const {
       content = document.body,
       visible = false,
-      status = 'uninstall',
       domSetting = {}
     } = config || {}
     this.domSetting = domSetting
@@ -161,13 +160,12 @@ export class CreateDialog {
 
     domMap.dialog.style.display = visible ? 'block' : 'none'
     content?.appendChild(domMap.dialog)
-    this.status = status === 'uninstall' ? '安装' : '更新'
 
     const _config: DialogConfig = {}
     this.domMap = domMap
 
     this.config = new Proxy(_config, {
-      set(obj, prop: string, value) {
+      set: (obj, prop: string, value) => {
         obj[prop] = value
         const _configHandle: (arg0: string, arg1: DomMap) => void | null =
           handleChangeConfig[prop]
@@ -262,6 +260,8 @@ export class CreateDialog {
     Object.entries(config).forEach(([key, value]) => {
       this.config[key] = value
     })
+    this.status = config?.status === 'uninstall' ? '安装' : '更新'
+    this.setContent(this.getContentDom())
 
     return this.config
   }
@@ -420,12 +420,17 @@ export class CreateDialog {
   getDialog(): DomMap {
     return this.domMap
   }
-  setContent(contentDom: HTMLElement): void {
+  setContent(contentDom: HTMLElement | HTMLElement[]): void {
     const { content } = this.domMap
-    for (let i = 0; i < content.children.length; i++) {
-      content.children[i].remove()
+    content.innerHTML = ''
+
+    if (Array.isArray(contentDom)) {
+      contentDom.forEach(el => {
+        content.appendChild(el)
+      })
+    } else {
+      content.appendChild(contentDom)
     }
-    content.appendChild(contentDom)
   }
   destroy(): void {
     const { close, modal } = this.domMap

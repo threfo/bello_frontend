@@ -47,6 +47,7 @@ export default class XiaobeiVersion {
   dialog: CreateDialog | null
   pluginInfo: PluginInfo | null = null
   version: Version | null = null
+  autoVisible?: boolean = true
   status: 'least' | 'latest' | 'uninstall' = 'uninstall'
   constructor(
     version: Version,
@@ -54,23 +55,23 @@ export default class XiaobeiVersion {
     public content?: HTMLElement
   ) {
     this.content = content ?? document.body
+    const { visible = true, ...otherConfig } = config || {}
 
     const _config = {
-      visible: false,
       showClose: true,
       closeOnClickModal: false,
       id: '_xiaobei_update_dialog_',
       notice_timing: 'unInstall,update',
+      status: 'uninstall',
       content: this.content,
-      ...(config || {})
+      ...(otherConfig || {})
     }
     const { notice_timing, id } = _config || {}
 
     this.version = version
+    this.autoVisible = visible
     this.content?.querySelector(`#${id}`)?.remove()
-
     this.dialog = new CreateDialog(_config)
-
     let messageToPlugin: NodeJS.Timeout
 
     // 检查更新
@@ -108,17 +109,35 @@ export default class XiaobeiVersion {
       return data
     }
   }
+  open(fn?: () => void): void {
+    try {
+      fn && fn()
+      this.dialog?.onOpen()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  close(fn?: () => void): void {
+    try {
+      fn && fn()
+      this.dialog?.onClose()
+    } catch (err) {
+      console.error(err)
+    }
+  }
   checkVersion(fn?: (arg0: XiaobeiVersion, arg1: string) => void): string {
     if (!this.dialog) {
       return 'no_dialog'
     }
     if (!this.hasPlugin) {
       this.status = 'uninstall'
-      this.dialog.setConfig({
-        visible: true,
-        showClose: true,
-        status: 'uninstall'
-      })
+
+      this.autoVisible &&
+        this.dialog.setConfig({
+          visible: true,
+          showClose: true,
+          status: 'uninstall'
+        })
 
       fn && fn(this, 'uninstall')
       // 未安装插件
@@ -133,7 +152,8 @@ export default class XiaobeiVersion {
     if (isLeastVersion) {
       // 强制更新
       this.status = 'least'
-      this.dialog.setConfig({ visible: true, showClose: false })
+      this.autoVisible &&
+        this.dialog.setConfig({ visible: true, showClose: false })
       fn && fn(this, 'least')
       return 'least'
     }
@@ -143,7 +163,8 @@ export default class XiaobeiVersion {
     if (isLatestVersion) {
       // 软更新
       this.status = 'latest'
-      this.dialog.setConfig({ visible: true, showClose: true })
+      this.autoVisible &&
+        this.dialog.setConfig({ visible: true, showClose: true })
       fn && fn(this, 'latest')
       return 'latest'
     }
