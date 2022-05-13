@@ -257,11 +257,12 @@ export class CreateDialog {
   }
 
   setConfig(config: DialogConfig): DialogConfig {
+    this.status = config?.status === 'uninstall' ? '安装' : '更新'
+    this.setContent(this.getContentDom())
+
     Object.entries(config).forEach(([key, value]) => {
       this.config[key] = value
     })
-    this.status = config?.status === 'uninstall' ? '安装' : '更新'
-    this.setContent(this.getContentDom())
 
     return this.config
   }
