@@ -1,5 +1,13 @@
+type Types =
+  | 'chromeLocalStorage'
+  | 'chromeSyncStorage'
+  | 'localStorage'
+  | 'sessionStorage'
+  | 'indexedDB'
+  | ''
+
 export interface Configs {
-  type: string
+  type: Types
   notClearKeys: string[]
   converter?: Converter
   name?: string
@@ -11,13 +19,7 @@ export interface Converter {
 }
 
 export abstract class Store {
-  type:
-    | 'chromeLocalStorage'
-    | 'chromeSyncStorage'
-    | 'localStorage'
-    | 'sessionStorage'
-    | 'indexedDB'
-    | '' = ''
+  type: Types = ''
   notClearKeys: string[] = []
   abstract converter: Converter
   abstract listeners: any[]

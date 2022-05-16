@@ -2,7 +2,7 @@ import { Store, Converter, Configs } from '../interfaces'
 import { base64Str2Obj, obj2Base64Str } from '../utils/transform'
 import { merge } from '../utils/merge'
 
-export default class ChromeCatch extends Store {
+export default class ChromeStorageCatch extends Store {
   private store: chrome.storage.StorageArea
   converter: Converter
   listeners: any[] = []
