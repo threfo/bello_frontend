@@ -1,5 +1,5 @@
 {
-  "name": "@belloai/catch-auto-select",
+  "name": "@belloai/catcher",
   "version": "0.0.1",
   "description": "utils for chromeLocalStorage | chromeSyncStorage | localStorage | sessionStorage | indexedDB",
   "author": "李广远 <liguangyuan@belloai.com>",

@@ -48,6 +48,7 @@ export default class XiaobeiVersion {
   pluginInfo: PluginInfo | null = null
   version: Version | null = null
   autoVisible?: boolean = true
+  noticeTiming?: string
   status: 'least' | 'latest' | 'uninstall' = 'uninstall'
   constructor(
     version: Version,
@@ -72,31 +73,27 @@ export default class XiaobeiVersion {
     this.autoVisible = visible
     this.content?.querySelector(`#${id}`)?.remove()
     this.dialog = new CreateDialog(_config)
-    let messageToPlugin: NodeJS.Timeout
+    this.noticeTiming = notice_timing
 
     // 检查更新
-    if (notice_timing?.includes('update')) {
-      messageToPlugin = setInterval(() => {
-        if (this.hasPlugin) {
-          clearInterval(messageToPlugin)
-          return
-        }
-        window.postMessage({ type: 'osr_inited' }, '*')
-      }, 200)
+    const messageToPlugin = setInterval(() => {
+      if (this.hasPlugin) {
+        clearInterval(messageToPlugin)
+        return
+      }
+      window.postMessage({ type: 'osr_inited' }, '*')
+    }, 200)
 
-      window.addEventListener('message', this.fetchXClientVersion)
-    }
+    window.addEventListener('message', this.fetchXClientVersion)
 
     // 未安装插件
-    if (notice_timing?.includes('unInstall')) {
-      setTimeout(() => {
-        if (!this.hasPlugin) {
-          messageToPlugin && clearInterval(messageToPlugin)
-          this.checkVersion()
-          window.removeEventListener('message', this.fetchXClientVersion)
-        }
-      }, 3 * 1000)
-    }
+    setTimeout(() => {
+      if (this.noticeTiming?.includes('unInstall') && !this.hasPlugin) {
+        messageToPlugin && clearInterval(messageToPlugin)
+        this.checkVersion()
+        window.removeEventListener('message', this.fetchXClientVersion)
+      }
+    }, 3 * 1000)
   }
   fetchXClientVersion = (event: MessageEvent): void => {
     const { data } = event || {}
@@ -104,7 +101,10 @@ export default class XiaobeiVersion {
     if (type === 'bl_plugin_inited') {
       this.hasPlugin = true
       this.pluginInfo = pluginData
-      this.checkVersion()
+
+      if (this.noticeTiming?.includes('update')) {
+        this.checkVersion()
+      }
 
       return data
     }
