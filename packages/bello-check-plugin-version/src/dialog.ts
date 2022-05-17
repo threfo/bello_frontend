@@ -48,6 +48,7 @@ export interface UpdateConfig {
   }
   web?: {
     login_logo_uri: string
+    install_title: string
     update_title: string
     features: Array<string>
     theme_color: string
@@ -181,6 +182,7 @@ export class CreateDialog {
       ...config
     })
     this.onCreate()
+    window.addEventListener('keyup', this.handleEsc)
   }
   onCreate(): void {
     const { dialog, modal, content, close } = this.domMap
@@ -258,12 +260,15 @@ export class CreateDialog {
 
   setConfig(config: DialogConfig): DialogConfig {
     this.status = config?.status === 'uninstall' ? '安装' : '更新'
-    this.setContent(this.getContentDom())
 
     Object.entries(config).forEach(([key, value]) => {
-      this.config[key] = value
+      const _val = this.config[key]
+      if (_val !== value) {
+        this.config[key] = value
+      }
     })
 
+    this.setContent(this.getContentDom())
     return this.config
   }
 
@@ -290,7 +295,8 @@ export class CreateDialog {
       extension || {}
     const {
       login_logo_uri = 'https://assets.belloai.com/staging/config/login_logo.png',
-      update_title = '安装插件，即刻开启AI招聘功能，实现降本增效',
+      install_title = '安装插件，即刻开启AI招聘功能，实现降本增效',
+      update_title = '更新插件，即刻开启AI招聘功能，实现降本增效',
       features = [],
       feature_title = '安装后可享用',
       theme_color = '#5a66ff',
@@ -303,7 +309,9 @@ export class CreateDialog {
     const { content: contentSetting = {} } = this.domSetting || {}
     const {
       logo: logoConfig = {},
-      title: titleConfig = { text: `${update_title}` },
+      title: titleConfig = {
+        text: this.status === '更新' ? `${update_title}` : `${install_title}`
+      },
       features: featuresConfig = {},
       featuresTitle: featuresTitleConfig = { text: `${feature_title}` },
       featureItem: featureItemConfig = {},
@@ -422,8 +430,13 @@ export class CreateDialog {
     return this.domMap
   }
   setContent(contentDom: HTMLElement | HTMLElement[]): void {
-    const { content } = this.domMap
+    const { content, close } = this.domMap
+
     content.innerHTML = ''
+
+    if (this.config.showClose) {
+      content.appendChild(close)
+    }
 
     if (Array.isArray(contentDom)) {
       contentDom.forEach(el => {
@@ -437,6 +450,12 @@ export class CreateDialog {
     const { close, modal } = this.domMap
     close.removeEventListener('click', this.onClose.bind(this))
     modal.removeEventListener('click', this.onClose.bind(this))
+    window.removeEventListener('keyup', this.handleEsc)
     this.config = {}
+  }
+  handleEsc = (e): void => {
+    if (e.keyCode == 27) {
+      this.config.visible = false
+    }
   }
 }

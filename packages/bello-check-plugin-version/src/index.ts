@@ -1,4 +1,4 @@
-import { CreateDialog, BaseConfig } from './dialog'
+import { BaseConfig, CreateDialog } from './dialog'
 
 export { CreateDialog }
 
@@ -49,7 +49,7 @@ export default class XiaobeiVersion {
   version: Version | null = null
   autoVisible?: boolean = true
   noticeTiming?: string
-  status: 'least' | 'latest' | 'uninstall' = 'uninstall'
+  status: 'least' | 'latest' | 'uninstall' | 'success' = 'uninstall'
   constructor(
     version: Version,
     config?: BaseConfig,
@@ -170,6 +170,7 @@ export default class XiaobeiVersion {
     }
 
     // 安装了最新版
+    this.status = 'success'
     fn && fn(this, 'success')
     return 'success'
   }
