@@ -32,8 +32,5 @@
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "prepublishOnly": "yarn run build"
-  },
-  "devDependencies": {
-    "vue": "^2.6.11"
   }
 }
