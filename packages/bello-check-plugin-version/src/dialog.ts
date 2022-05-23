@@ -13,14 +13,16 @@ export interface DomSetting {
   dialog?: SettingItem
   modal?: SettingItem
   close?: SettingItem
-  content?: {
-    logo?: SettingItem
-    title?: SettingItem
-    features?: SettingItem
-    featuresTitle?: SettingItem
-    featureItem?: SettingItem
-    updateBtn?: SettingItem
-  }
+  content?: ContentSetting
+}
+
+export interface ContentSetting extends SettingItem {
+  logo?: SettingItem
+  title?: SettingItem
+  features?: SettingItem
+  featuresTitle?: SettingItem
+  featureItem?: SettingItem
+  updateBtn?: SettingItem
 }
 
 export interface SettingItem {
