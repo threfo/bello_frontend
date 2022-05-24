@@ -1,6 +1,6 @@
 {
   "name": "@belloai/check-plugin-version",
-  "version": "0.0.15",
+  "version": "0.1.0",
   "description": "vue 小倍插件更新检查",
   "author": "李广远 <liguangyuan@belloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",

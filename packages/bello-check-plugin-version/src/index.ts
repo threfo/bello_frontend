@@ -53,7 +53,10 @@ export default class XiaobeiVersion {
   constructor(
     version: Version,
     config?: BaseConfig,
-    public content?: HTMLElement
+    public content?: HTMLElement,
+    public onChange?: (
+      status: 'least' | 'latest' | 'uninstall' | 'success'
+    ) => void
   ) {
     this.content = content ?? document.body
     const { visible = true, ...otherConfig } = config || {}
@@ -125,11 +128,19 @@ export default class XiaobeiVersion {
       console.error(err)
     }
   }
-  checkVersion(fn?: (arg0: XiaobeiVersion, arg1: string) => void): string {
+  checkVersion(): string {
     if (!this.dialog) {
       return 'no_dialog'
     }
+    const fn = this.onChange
+    const { version = '' } = this.pluginInfo || {}
+    const { latest = '', least = '' } = this.version || {}
+
+    const isLeastVersion = judgeVersionUpdated(version, least)
+    const isLatestVersion = judgeVersionUpdated(version, latest)
+
     if (!this.hasPlugin) {
+      // 未安装插件
       this.status = 'uninstall'
 
       this.autoVisible &&
@@ -138,41 +149,25 @@ export default class XiaobeiVersion {
           showClose: true,
           status: 'uninstall'
         })
-
-      fn && fn(this, 'uninstall')
-      // 未安装插件
-      return 'uninstall'
-    }
-
-    const { version = '' } = this.pluginInfo || {}
-    const { latest = '', least = '' } = this.version || {}
-
-    const isLeastVersion = judgeVersionUpdated(version, least)
-
-    if (isLeastVersion) {
+    } else if (isLeastVersion) {
       // 强制更新
       this.status = 'least'
+
       this.autoVisible &&
         this.dialog.setConfig({ visible: true, showClose: false })
-      fn && fn(this, 'least')
-      return 'least'
-    }
-
-    const isLatestVersion = judgeVersionUpdated(version, latest)
-
-    if (isLatestVersion) {
+    } else if (isLatestVersion) {
       // 软更新
       this.status = 'latest'
+
       this.autoVisible &&
         this.dialog.setConfig({ visible: true, showClose: true })
-      fn && fn(this, 'latest')
-      return 'latest'
+    } else {
+      // 安装了最新版
+      this.status = 'success'
     }
 
-    // 安装了最新版
-    this.status = 'success'
-    fn && fn(this, 'success')
-    return 'success'
+    fn && fn(this.status)
+    return this.status
   }
   destroy(): void {
     this.version = null

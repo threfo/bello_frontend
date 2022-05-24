@@ -455,8 +455,8 @@ export class CreateDialog {
     window.removeEventListener('keyup', this.handleEsc)
     this.config = {}
   }
-  handleEsc = (e): void => {
-    if (e.keyCode == 27) {
+  handleEsc = (e: KeyboardEvent): void => {
+    if (e.code == 'Escape') {
       this.config.visible = false
     }
   }
