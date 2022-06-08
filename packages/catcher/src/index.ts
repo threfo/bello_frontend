@@ -14,7 +14,7 @@ const types = {
   indexedDB: IndexedDBCatch
 }
 
-export default function Catcher(config: Configs): Store {
+export default (config: Configs): Store => {
   const { type } = config || {}
   const _Store: Store = new types[type || 'localStorage'](config)
   return _Store
