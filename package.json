@@ -16,6 +16,7 @@
       "@babel/moment/**",
       "@babel/state/**",
       "@babel/qs/**",
+      "@babel/transform/**",
       "@babel/utils/**",
       "@babel/router/**",
       "@babel/bello-vue-auth/**"
