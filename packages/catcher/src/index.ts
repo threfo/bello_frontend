@@ -1,4 +1,4 @@
-import { Store, Configs } from './interfaces'
+import { Store } from './interfaces'
 
 import ChromeStorageCatch from './libs/chromeStorage'
 import StorageCatch from './libs/storage'
@@ -14,7 +14,7 @@ const types = {
   indexedDB: IndexedDBCatch
 }
 
-export function Catcher(config: Configs): Store {
+export const Catcher = config => {
   const { type } = config || {}
   const _Store: Store = new types[type || 'localStorage'](config)
   return _Store
