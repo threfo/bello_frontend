@@ -1,8 +1,11 @@
 {
-  "name": "@belloai/catcher",
+  "name": "@belloai/clipboard",
   "version": "0.0.1",
-  "description": "utils for chromeLocalStorage | chromeSyncStorage | localStorage | sessionStorage | indexedDB",
-  "author": "李广远 <liguangyuan@belloai.com>",
+  "description": "clipboard 的复制到剪贴板的常用方法",
+  "keywords": [
+    "clipboard"
+  ],
+  "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
   "license": "ISC",
   "publishConfig": {
@@ -25,18 +28,15 @@
     "type": "git",
     "url": "git+https://github.com/threfo/bello_frontend.git"
   },
-  "bugs": {
-    "url": "https://github.com/threfo/bello_frontend/issues"
-  },
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "prepublishOnly": "yarn run build"
   },
-  "dependencies": {
-    "localforage": "^1.10.0"
+  "bugs": {
+    "url": "https://github.com/threfo/bello_frontend/issues"
   },
-  "devDependencies": {
-    "@types/chrome": "^0.0.186"
+  "dependencies": {
+    "clipboard": "^2.0.8"
   }
 }

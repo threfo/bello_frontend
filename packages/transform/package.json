@@ -1,9 +1,10 @@
 {
-  "name": "@belloai/moment",
-  "version": "0.0.2",
-  "description": "moment 的常用工具",
+  "name": "@belloai/transform",
+  "version": "0.0.6",
+  "description": "api 数据转组件用到的数据体",
   "keywords": [
-    "moment"
+    "Local",
+    "Storage"
   ],
   "author": "thomas-ballo <liurongliang@balloai.com>",
   "homepage": "https://github.com/threfo/bello_frontend#readme",
@@ -36,10 +37,11 @@
   "bugs": {
     "url": "https://github.com/threfo/bello_frontend/issues"
   },
-  "peerDependencies": {
-    "moment": "^2.29.1"
+  "dependencies": {
+    "@belloai/moment": "^0.0.2",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/moment": "^2.13.0"
+    "@types/lodash": "^4.14.176"
   }
 }

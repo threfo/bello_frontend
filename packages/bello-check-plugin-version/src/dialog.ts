@@ -299,7 +299,7 @@ export class CreateDialog {
       login_logo_uri = 'https://assets.belloai.com/staging/config/login_logo.png',
       install_title = '安装插件，即刻开启AI招聘功能，实现降本增效',
       update_title = '更新插件，即刻开启AI招聘功能，实现降本增效',
-      features = [],
+      features: privateFeatures = [],
       feature_title = '安装后可享用',
       theme_color = '#5a66ff',
       button_color = '#5a66ff'
@@ -307,7 +307,7 @@ export class CreateDialog {
 
     Logo.src = login_logo_uri
     Logo.height = 30
-
+    const features = privateFeatures.filter(i => i)
     const { content: contentSetting = {} } = this.domSetting || {}
     const {
       logo: logoConfig = {},
