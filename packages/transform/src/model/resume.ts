@@ -46,7 +46,7 @@ export const resumeFixAge = (
 export const getWorkYear = (
   resume: Record<string, any>,
   round = true
-): number => {
+): number | string => {
   const { year_of_work_experience, start_year_of_employment } = resume
   let workYear = year_of_work_experience
   if (start_year_of_employment) {
@@ -272,7 +272,7 @@ interface Projects {
   description: string
   [key: string]: any
 }
-export const getProjects = (resume: Record<string, any>): Projects => {
+export const getProjects = (resume: Record<string, any>): Projects[] => {
   const { projects } = resume
 
   return (projects || []).map(item => {
@@ -292,7 +292,7 @@ interface Educations {
   schoolType: string
   [key: string]: any
 }
-export const getEducations = (resume: Record<string, any>): Educations => {
+export const getEducations = (resume: Record<string, any>): Educations[] => {
   const { educations } = resume
 
   return (educations || []).map(item => {
