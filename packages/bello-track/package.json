@@ -1,9 +1,9 @@
 {
   "name": "@belloai/bello-track",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "ziyu971225 <xin872906473@163.com>",
   "description": "track report",
-  "module": "lib/index.esm.js",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rimraf lib/* && rollup -c",
