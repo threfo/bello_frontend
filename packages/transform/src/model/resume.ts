@@ -729,17 +729,23 @@ export const getIsNew = (
 // 获取显示锁
 export const getShowLock = (resume: Record<string, any>): boolean => {
   const { lock } = resume || {}
-  const { unlock_date, created_at } = lock || {}
+  const { unlock_date, status } = lock || {}
 
-  let showLock = false
-
-  if (unlock_date) {
-    showLock = moment(unlock_date).diff(moment(), 'seconds') > 0
-  } else if (created_at) {
-    showLock = true
+  if (!status) {
+    return false
+  } else {
+    if (unlock_date === false) {
+      return true
+    }
+    if (
+      unlock_date &&
+      (moment(unlock_date).diff(moment(), 'seconds') > 0 ||
+        moment(unlock_date).isSame(moment('1970-01-01T00:00:00')))
+    ) {
+      return true
+    }
+    return false
   }
-
-  return showLock
 }
 
 export const getLockParams = (resume: Record<string, any>) => {

@@ -58,6 +58,7 @@ describe('src/utils/transform/resume', () => {
       JSON.stringify(
         getLockParams({
           lock: {
+            status: true,
             unlock_date: moment().add(1, 'days'),
             recruiting: 'recruiting'
           }
@@ -74,6 +75,7 @@ describe('src/utils/transform/resume', () => {
       JSON.stringify(
         getLockParams({
           lock: {
+            status: true,
             unlock_date: moment().add(-1, 'days'),
             recruiting: {
               id: 'recruiting'
@@ -92,18 +94,27 @@ describe('src/utils/transform/resume', () => {
   it('getShowLock', () => {
     expect(getShowLock({})).toBe(false)
     expect(getShowLock({ lock: {} })).toBe(false)
-    expect(getShowLock({ lock: { unlock_date: '' } })).toBe(false)
+    expect(getShowLock({ lock: { status: false } })).toBe(false)
     expect(
       getShowLock({
-        lock: { unlock_date: undefined, created_at: '2021-05-01' }
+        lock: { status: true, unlock_date: false }
       })
     ).toBe(true)
     expect(
-      getShowLock({ lock: { unlock_date: moment().add(1, 'days') } })
+      getShowLock({
+        lock: { status: true, unlock_date: moment().add(1, 'days') }
+      })
     ).toBe(true)
     expect(
-      getShowLock({ lock: { unlock_date: moment().add(-1, 'days') } })
+      getShowLock({
+        lock: { status: true, unlock_date: moment().add(-1, 'days') }
+      })
     ).toBe(false)
+    expect(
+      getShowLock({
+        lock: { status: true, unlock_date: '1970-01-01T00:00:00' }
+      })
+    ).toBe(true)
   })
 
   it('getWorkYear', () => {
