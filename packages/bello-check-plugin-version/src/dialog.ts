@@ -6,6 +6,7 @@ export interface DialogConfig {
   content?: HTMLElement
   status?: string
   domSetting?: DomSetting
+  buttons?: SettingItem[]
   [key: string]: any
 }
 
@@ -27,7 +28,11 @@ export interface ContentSetting extends SettingItem {
 
 export interface SettingItem {
   style?: Attributes
-  text?: string
+  attrs?: any
+  text?: string | ((state: string) => string)
+  on?: {
+    [key: string]: any
+  }
   [key: string]: any
 }
 
@@ -113,13 +118,21 @@ export const createElement = (tag: string, className: string): HTMLElement => {
 
 export const setDomSetting = (
   dom: HTMLElement,
+  status: string,
   setting: SettingItem,
   defaultStyle?: Attributes
 ): void => {
-  const { style = {}, text = '', ...attrs } = setting || {}
+  const { style = {}, text = '', on = {}, ...attrs } = setting || {}
+  const HtmlText = typeof text === 'string' ? text : text(status)
 
   Object.entries(attrs).forEach(([key, value]) => {
     dom.setAttribute(key, value)
+  })
+
+  Object.entries(on).forEach(([eventName, fn]) => {
+    if (fn) {
+      dom.addEventListener(eventName, fn, false)
+    }
   })
 
   Object.entries({
@@ -129,7 +142,7 @@ export const setDomSetting = (
     dom.style[styleName] = styleValue
   })
 
-  dom.appendChild(new Text(text))
+  dom.appendChild(new Text(HtmlText))
 }
 
 export class CreateDialog {
@@ -137,13 +150,16 @@ export class CreateDialog {
   public domSetting: DomSetting
   private domMap: DomMap
   private status = '安装'
+  private buttons: SettingItem[] = []
   constructor(config: DialogConfig) {
     const {
       content = document.body,
       visible = false,
-      domSetting = {}
+      domSetting = {},
+      buttons = []
     } = config || {}
     this.domSetting = domSetting
+    this.buttons = Array.from(buttons || [])
 
     const domMap = {
       dialog: createElement('div', '_xiaobei_update_dialog_') as HTMLDivElement,
@@ -195,7 +211,7 @@ export class CreateDialog {
       close: closeSetting = {}
     } = this.domSetting
 
-    setDomSetting(dialog, dialogSetting, {
+    setDomSetting(dialog, this.status, dialogSetting, {
       width: '100vw',
       height: '100vh',
       position: 'fixed',
@@ -208,7 +224,7 @@ export class CreateDialog {
       zIndex: 999999
     })
 
-    setDomSetting(modal, modalSetting, {
+    setDomSetting(modal, this.status, modalSetting, {
       position: 'absolute',
       width: '100%',
       height: '100%',
@@ -216,7 +232,7 @@ export class CreateDialog {
       background: '#000000'
     })
 
-    setDomSetting(content, contentSetting, {
+    setDomSetting(content, this.status, contentSetting, {
       transition: '0.2s',
       position: 'relative',
       fontWeight: 400,
@@ -231,7 +247,7 @@ export class CreateDialog {
       boxSizing: 'border-box'
     })
 
-    setDomSetting(close, closeSetting, {
+    setDomSetting(close, this.status, closeSetting, {
       position: 'absolute',
       right: '16px',
       top: '16px',
@@ -259,7 +275,6 @@ export class CreateDialog {
     dialog.appendChild(modal)
     dialog.appendChild(content)
   }
-
   setConfig(config: DialogConfig): DialogConfig {
     this.status = config?.status === 'uninstall' ? '安装' : '更新'
 
@@ -273,7 +288,6 @@ export class CreateDialog {
     this.setContent(this.getContentDom())
     return this.config
   }
-
   getContentDom(): HTMLElement[] {
     const Logo = createElement(
       'img',
@@ -320,16 +334,16 @@ export class CreateDialog {
       updateBtn: updateBtnConfig = {}
     } = contentSetting || {}
 
-    setDomSetting(Logo, logoConfig)
+    setDomSetting(Logo, this.status, logoConfig)
 
-    setDomSetting(Title, titleConfig, {
+    setDomSetting(Title, this.status, titleConfig, {
       lineHeight: '1.375rem',
       fontSize: '1rem',
       margin: '4px 0',
       color: 'gba(40,40,60,1);'
     })
 
-    setDomSetting(Features, featuresConfig, {
+    setDomSetting(Features, this.status, featuresConfig, {
       listStyle: 'none',
       padding: 0,
       display: 'flex',
@@ -342,7 +356,7 @@ export class CreateDialog {
         '_xiaobei_update_dialog_content_features_title_'
       ) as HTMLParagraphElement
 
-      setDomSetting(append, featuresTitleConfig, {
+      setDomSetting(append, this.status, featuresTitleConfig, {
         lineHeight: '1.375rem',
         fontSize: '.875rem',
         marginTop: '2.5rem',
@@ -374,6 +388,7 @@ export class CreateDialog {
 
       setDomSetting(
         itemDom,
+        this.status,
         {
           text: `${item}`,
           ...featureItemConfig
@@ -390,35 +405,72 @@ export class CreateDialog {
 
     setDomSetting(
       UpdateBtnBox,
+      this.status,
       {},
       {
         marginTop: '2.5rem',
-        textAlign: 'center'
-      }
-    )
-    const UpdateBtn = document.createElement('a')
-    setDomSetting(
-      UpdateBtn,
-      {
-        href: download_page,
-        target: '_blank',
-        text: `立即${this.status}`,
-        ...(updateBtnConfig || {})
-      },
-      {
-        color: 'white',
-        lineHeight: '1.375rem',
-        fontWeight: 500,
-        fontSize: '.875rem',
-        borderRadius: '0.25rem',
-        padding: '0.5rem 5rem',
-        cursor: 'pointer',
-        textDecoration: 'none',
-        backgroundColor: button_color || 'rgba(90,102,255)'
+        marginLeft: this.buttons.length ? '-1rem' : '0',
+        textAlign: 'center',
+        display: 'flex'
       }
     )
 
-    UpdateBtnBox.appendChild(UpdateBtn)
+    const btnItemStyle = {
+      color: 'white',
+      lineHeight: '1.375rem',
+      fontWeight: 500,
+      fontSize: '.875rem',
+      borderRadius: '0.25rem',
+      padding: '0.5rem 5rem',
+      flex: 1,
+      cursor: 'pointer',
+      textDecoration: 'none',
+      backgroundColor: button_color || 'rgba(90,102,255)'
+    }
+    if (!this.buttons.length) {
+      const UpdateBtn = document.createElement('a')
+      setDomSetting(
+        UpdateBtn,
+        this.status,
+        {
+          href: download_page,
+          target: '_blank',
+          text: `立即${this.status}`,
+          ...(updateBtnConfig || {})
+        },
+        btnItemStyle
+      )
+
+      UpdateBtnBox.appendChild(UpdateBtn)
+    } else {
+      this.buttons.forEach(config => {
+        const {
+          attrs = {},
+          on = {},
+          style = {},
+          text = `立即${this.status}`
+        } = config || {}
+        console.log(config)
+        const btnEl = document.createElement('a')
+        setDomSetting(
+          btnEl,
+          this.status,
+          {
+            ...(attrs || {}),
+            text,
+            on
+          },
+          {
+            ...btnItemStyle,
+            padding: '0.5rem 2rem',
+            marginLeft: '1rem',
+            ...(style || {})
+          }
+        )
+
+        UpdateBtnBox.appendChild(btnEl)
+      })
+    }
 
     return [Logo, Title, Features, UpdateBtnBox]
   }
