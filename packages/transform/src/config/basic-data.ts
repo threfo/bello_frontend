@@ -51,7 +51,8 @@ export enum CHANNEL_MAPS {
   official_site_delivery = '官网主动投递',
   customer_talent_pool = '客户人才库',
   customer_recommend = '客户推荐',
-  cold_call = 'Cold Call'
+  cold_call = 'Cold Call',
+  guopin = '国聘'
 }
 /**
  * 入库方式

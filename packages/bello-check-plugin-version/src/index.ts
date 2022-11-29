@@ -96,7 +96,7 @@ export default class XiaobeiVersion {
         this.checkVersion()
         window.removeEventListener('message', this.fetchXClientVersion)
       }
-    }, 1.5 * 1000)
+    }, 2 * 1000)
   }
   fetchXClientVersion = (event: MessageEvent): void => {
     const { data } = event || {}
