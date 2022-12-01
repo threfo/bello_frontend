@@ -45,7 +45,7 @@ export const transformEnhance = (
       res.history = [] // 发展历程
       res.industries = '' // 行业
       res.leaders = [] // 管理团队
-      res.short_name = temp.shortName || '' // 简称
+      res.short_name = temp.short_name || '' // 简称
       res.tags = temp.tags || [] // 标签
 
       // 处理行业
