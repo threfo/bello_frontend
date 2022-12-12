@@ -59,7 +59,7 @@ export default class XiaobeiVersion {
     ) => void
   ) {
     this.content = content ?? document.body
-    const { visible = true, ...otherConfig } = config || {}
+    const { visible = true, witeTime = 2 * 1000, ...otherConfig } = config || {}
 
     const _config = {
       showClose: true,
@@ -96,7 +96,7 @@ export default class XiaobeiVersion {
         this.checkVersion()
         window.removeEventListener('message', this.fetchXClientVersion)
       }
-    }, 2 * 1000)
+    }, witeTime)
   }
   fetchXClientVersion = (event: MessageEvent): void => {
     const { data } = event || {}

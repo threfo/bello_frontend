@@ -65,7 +65,9 @@ export interface UpdateConfig {
   }
 }
 
-export interface BaseConfig extends DialogConfig, UpdateConfig {}
+export interface BaseConfig extends DialogConfig, UpdateConfig {
+  witeTime?: number
+}
 
 export const handleChangeConfig: Attributes = {
   id(value: string, domMap: DomMap) {
