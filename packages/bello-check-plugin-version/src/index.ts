@@ -79,20 +79,23 @@ export default class XiaobeiVersion {
     this.noticeTiming = notice_timing
 
     // 检查更新
-    const messageToPlugin = setInterval(() => {
+    let messageId: any
+    const messageToPlugin = () => {
       if (this.hasPlugin) {
-        clearInterval(messageToPlugin)
+        clearTimeout(messageId)
         return
       }
       window.postMessage({ type: 'osr_inited' }, '*')
-    }, 100)
+      messageId = setTimeout(messageToPlugin, 100)
+    }
 
+    messageToPlugin()
     window.addEventListener('message', this.fetchXClientVersion)
 
     // 未安装插件
     setTimeout(() => {
       if (this.noticeTiming?.includes('unInstall') && !this.hasPlugin) {
-        messageToPlugin && clearInterval(messageToPlugin)
+        messageId && clearInterval(messageId)
         this.checkVersion()
         window.removeEventListener('message', this.fetchXClientVersion)
       }
@@ -166,7 +169,7 @@ export default class XiaobeiVersion {
       this.status = 'success'
     }
 
-    fn && fn(this.status)
+    fn && fn(this.status, this.pluginInfo)
     return this.status
   }
   destroy(): void {
