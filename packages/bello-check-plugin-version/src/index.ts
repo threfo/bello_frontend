@@ -55,7 +55,8 @@ export default class XiaobeiVersion {
     config?: BaseConfig,
     public content?: HTMLElement,
     public onChange?: (
-      status: 'least' | 'latest' | 'uninstall' | 'success'
+      status: 'least' | 'latest' | 'uninstall' | 'success',
+      plugin: PluginInfo | null
     ) => void
   ) {
     this.content = content ?? document.body
