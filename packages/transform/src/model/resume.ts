@@ -194,21 +194,22 @@ export const getYearOfWorkExperience = (
   return yearOfWorkExperience
 }
 
-interface TransfromDate {
-  start_date_fm: string
+interface TransformDate {
+  start_date_fm: string | null
   work_year: string | null
-  end_date_fm: string
+  end_date_fm: string | null
 }
-export const transfromDate = (item, format = 'YYYY.MM'): TransfromDate => {
+export const transfromDate = (item, format = 'YYYY.MM'): TransformDate => {
   const { start_date, end_date, to_present } = item
 
-  let start_date_fm = ''
+  let start_date_fm: string | null = null
+  let work_year: string | null = null
+  let end_date_fm: string | null = null
+
   if (start_date) {
     start_date_fm = moment(start_date).format(format)
   }
 
-  let work_year: string | null = ''
-  let end_date_fm = ''
   if (to_present) {
     end_date_fm = '至今'
     work_year = transformDateYM(start_date, new Date())
@@ -223,11 +224,10 @@ export const transfromDate = (item, format = 'YYYY.MM'): TransfromDate => {
 
   return {
     start_date_fm,
-    work_year,
-    end_date_fm
+    end_date_fm,
+    work_year
   }
 }
-
 interface EmploymentsInfo {
   start_date_fm: string
   work_year: string | null
