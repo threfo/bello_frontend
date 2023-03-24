@@ -460,7 +460,15 @@ export const getSourceId = (resume: Record<string, any>) => {
   }
   return resumeId || source_id || id
 }
-
+const importTypeList = [
+  'user.plugin',
+  'wechat.helper',
+  'wechat.consultant',
+  'user.email',
+  'xclient.resume_deliver',
+  'user.upload',
+  'web.resume_deliver'
+]
 export const getChannelName = (
   resume: Record<string, any>,
   getChannelsConfig?: () => any
@@ -474,17 +482,7 @@ export const getChannelName = (
 
   if (['user.manual'].includes(import_type)) {
     name = '主动上传'
-  } else if (
-    [
-      'user.plugin',
-      'wechat.helper',
-      'wechat.consultant',
-      'user.email',
-      'xclient.resume_deliver',
-      'user.upload',
-      'web.resume_deliver'
-    ].includes(import_type)
-  ) {
+  } else if (importTypeList.includes(import_type)) {
     // 插件入库
     if (source_channel) {
       const channelName = channelsConfig?.[source_channel]
@@ -534,16 +532,7 @@ export const getOperateInfoChannel = (
 
   const strArr: string[] = []
 
-  if (
-    [
-      'user.plugin',
-      'wechat.helper',
-      'wechat.consultant',
-      'user.email',
-      'xclient.resume_deliver',
-      'user.upload'
-    ].includes(import_type)
-  ) {
+  if (importTypeList.includes(import_type)) {
     channelName && strArr.push(channelName)
   }
   sourceName && channelName !== sourceName && strArr.push(sourceName)
