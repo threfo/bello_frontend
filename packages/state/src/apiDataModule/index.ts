@@ -203,11 +203,13 @@ export const initApiDataModule = ({
         let list: any[] = []
         try {
           const { items } =
-            (await apiFactory.getRestfulApi(entryKey).list({
-              ...(params || {}),
-              hackProps: { notMsgPost: true },
+            (await apiFactory.getRestfulApi(entryKey).list(
+              {
+                ...(params || {}),
+                hackProps: { notMsgPost: true }
+              },
               lockKey
-            })) || {}
+            )) || {}
 
           list = items || []
         } catch (error) {
