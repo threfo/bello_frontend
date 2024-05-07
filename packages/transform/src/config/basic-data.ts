@@ -108,6 +108,11 @@ const webResumeDeliver = {
   label: '网站投递',
   postValue: 'web.resume_deliver'
 }
+const onlineChat = {
+  value: 'xclient.online_communication',
+  label: '在线沟通',
+  postValue: 'xclient.online_communication'
+}
 
 export const getAllImportFilterOptions = () => [
   userUpload,
@@ -119,5 +124,6 @@ export const getAllImportFilterOptions = () => [
   wechatConsultant,
   userXiaobei,
   userAcceptReferral,
-  webResumeDeliver
+  webResumeDeliver,
+  onlineChat
 ]
