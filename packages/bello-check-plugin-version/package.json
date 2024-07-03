@@ -32,5 +32,6 @@
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "prepublishOnly": "yarn run build"
-  }
+  },
+  "gitHead": "f1c0ca7ee4c49af9a86e16728d1d33e3f81153c7"
 }
