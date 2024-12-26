@@ -88,6 +88,7 @@ const wechatHelper = {
   label: '小程序投递',
   postValue: 'wechat.helper'
 }
+// test commit update
 const wechatConsultant = {
   value: 'wechat.consultant',
   label: '小程序导入',
