@@ -114,6 +114,11 @@ const onlineChat = {
   label: '在线沟通',
   postValue: 'xclient.online_communication'
 }
+const reviveResume = {
+  value: 'xclient.resume_revive',
+  label: '插件激活简历',
+  postValue: 'xclient.resume_revive'
+}
 
 export const getAllImportFilterOptions = () => [
   userUpload,
@@ -126,5 +131,6 @@ export const getAllImportFilterOptions = () => [
   userXiaobei,
   userAcceptReferral,
   webResumeDeliver,
-  onlineChat
+  onlineChat,
+  reviveResume
 ]
