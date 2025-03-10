@@ -67,7 +67,7 @@ export const getBusinessErrorMsg = error => {
   const { error: repError } = data || {}
   const { message: repErrorMessage } = repError || {}
 
-  if (status === '422') {
+  if (`${status}` === '422') {
     return '数据提交内容异常, 请刷新页面重试'
   }
 
