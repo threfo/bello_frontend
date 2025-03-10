@@ -77,7 +77,8 @@ export const getApiErrorMsg = error => {
   const msgMap = {
     '404': '404 未找到资源！',
     '502': '502 服务器跑路啦！',
-    '504': '504 服务器跑路啦！'
+    '504': '504 服务器跑路啦！',
+    '422': '数据提交内容异常, 请刷新页面重试'
   }
   const status = getErrorResponseStatus(error)
 
