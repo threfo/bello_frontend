@@ -63,9 +63,14 @@ export const isNotAuthError = error => {
 
 export const getBusinessErrorMsg = error => {
   const { response } = error || {}
-  const { data } = response || {}
+  const { data, status } = response || {}
   const { error: repError } = data || {}
   const { message: repErrorMessage } = repError || {}
+
+  if (status === '422') {
+    return '数据提交内容异常, 请刷新页面重试'
+  }
+
   return repErrorMessage
 }
 
@@ -77,8 +82,7 @@ export const getApiErrorMsg = error => {
   const msgMap = {
     '404': '404 未找到资源！',
     '502': '502 服务器跑路啦！',
-    '504': '504 服务器跑路啦！',
-    '422': '数据提交内容异常, 请刷新页面重试'
+    '504': '504 服务器跑路啦！'
   }
   const status = getErrorResponseStatus(error)
 
