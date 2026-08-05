@@ -728,7 +728,7 @@ export const getShowLock = (resume: Record<string, any>): boolean => {
     }
     if (
       unlock_date &&
-      (moment(unlock_date).diff(moment(), 'seconds') > 0 ||
+      (getFormUtcToLocalMoment(unlock_date).diff(moment(), 'seconds') > 0 ||
         moment(unlock_date).isSame(moment('1970-01-01T00:00:00')))
     ) {
       return true
